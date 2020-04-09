@@ -1,0 +1,45 @@
+/**
+* タグ単位
+*/
+html {
+    font-family: "Noto Sans";
+}
+
+body {
+    color:#6c6d6d;
+    background-color:rgb(255, 255, 255);
+}
+
+table {
+    font-size:8pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color:white;
+}
+
+tr{
+    margin:0px;
+}
+th {
+    border: 1px solid black;
+    background-color:rgb(47, 214, 206);
+}
+td {
+    border: 1px solid black;
+}
+
+/**
+* クラス単位
+*/
+table.diary_list {
+    width:50%;
+}
+table.diary_list th.no {
+    width: 5%;
+}
+table.diary_list th.post_date {
+    width: 10%;
+}
+table.diary_list th.edit {
+    width: 5%;
+}
