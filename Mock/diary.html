@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>メニュー</title>
+        <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
+                <div class="container">
+                    <a class="navbar-brand text-light">日記</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a href="./menu.html" class="nav-link text-light">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">プロフィール</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">設定</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <div class="card border-info mb-3">
+                        <div class="card-header theme_diary_title">
+                            <h5><b>何も釣れなかった魚釣り</b></h5>
+                            <div align="right">
+                                <input type="button" id="edit" class="btn btn-sm theme" value="編集"onclick="window.location.href = './edit.html';" />
+                            </div>
+                        </div>
+                        <div class="card-body theme_diary_content">
+                          ぼくは土曜日にお父さんと魚釣りに行きました。<br/>
+                          朝の5時に家を出発したので、とても眠たかったです。<br/>
+                          お母さんは家で留守番です。<br/>
+                          どこに魚釣りに出かけたのかというと、海です。<br/>
+                          お父さんが「車で2時間もかかるぞ。」と言っていたけれど、<br/>
+                          本当に2時間くらい車に乗っていました。<br/>
+                          海は遠いなと思いました。海に着くと、水がとてもきれいだったので驚きました。<br/>
+                          大きな魚が釣れるかもしれないと、何だかワクワクしました。<br/>
+                          お父さんがエサの付け方を教えてくれました。そして釣り始めました。<br/>
+                          何度か魚がエサを食べていました。でも、なかなか釣れませんでした。<br/>
+                          もうあきらめて帰ろうとしたときのことでした。<br/>
+                          ぼくの竿がグーンと大きく曲がりました。あわてて竿をつかみましたが、何も釣れていませんでした。<br/>
+                          「今日はあきらめて帰ろう。」とお父さんが言ったので帰りました。<br/>
+                          魚は釣れなかったけれども、海で遊んだので楽しかったです。<br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <input type="button" id="back" class="btn btn-sm theme_cancel" value="戻る"onclick="window.location.href = './menu.html';" />
+                </div>
+                <div class="col-11">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <footer class="border-top footer theme">
+            <div class="container" align="center">
+                &copy; 2020 - Diary_Sample - Privacy
+            </div>
+        </footer>
+        <script src="./lib/jquery/dist/jquery.min.js"></script>
+        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

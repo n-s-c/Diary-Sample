@@ -1,38 +1,81 @@
-/**
-* タグ単位
-*/
-html {
-    font-family: "Noto Sans";
-}
-
 body {
-    color:#6c6d6d;
-    background-color:rgb(255, 255, 255);
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+  }
+/**
+* テーマカラー
+* DBで管理できると良いね。
+*/
+.theme {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme:hover {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme_background {
+    color: black;
+    background-color: rgb(238, 247, 255);
+}
+.theme_positive {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_positive:hover {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_warning {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_warning:hover {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_cancel{
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+.theme_cancel:hover {
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
 }
 
-table {
-    font-size:8pt;
-    border-collapse: collapse;
-    border-spacing: 0;
-    background-color:white;
+.theme_diary_title {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:white;
+    background-color: rgb(8, 209, 75);
 }
-
-tr{
-    margin:0px;
+.theme_diary_title:hover{
+    color:white !important;
+    background-color: rgb(8, 209, 75) !important;
 }
-th {
-    border: 1px solid black;
-    background-color:rgb(47, 214, 206);
+.theme_diary_content {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:gray;
+    background-color: rgb(246, 255, 214);
 }
-td {
-    border: 1px solid black;
+/**
+* リンク
+*/
+a{
+    color: rgb(3, 97, 185);
+}
+a:hover{
+    color: rgb(15, 219, 49);
 }
 
 /**
-* クラス単位
+* 一覧
 */
 table.diary_list {
-    width:50%;
+    font-size:10pt;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 table.diary_list th.no {
     width: 5%;
@@ -42,4 +85,12 @@ table.diary_list th.post_date {
 }
 table.diary_list th.edit {
     width: 5%;
+}
+table.diary_list th {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+}
+table.diary_list td {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>メニュー</title>
+        <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body class="theme_background">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
+                <div class="container">
+                    <a class="navbar-brand text-light">日記</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a href="./menu.html" class="nav-link text-light">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">プロフィール</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">設定</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <form>
+                        <input class="form-control form-control-lg" type="text" placeholder="タイトルを入力してください" value="何も釣れなかった魚釣り">
+                        <br/>
+                        <textarea class="form-control" id="updFormControlTextarea1" rows="15" placeholder="本文を入力してください">
+ぼくは土曜日にお父さんと魚釣りに行きました。
+朝の5時に家を出発したので、とても眠たかったです。
+お母さんは家で留守番です。
+どこに魚釣りに出かけたのかというと、海です。
+お父さんが「車で2時間もかかるぞ。」と言っていたけれど、
+本当に2時間くらい車に乗っていました。
+海は遠いなと思いました。海に着くと、水がとてもきれいだったので驚きました。
+大きな魚が釣れるかもしれないと、何だかワクワクしました。
+お父さんがエサの付け方を教えてくれました。そして釣り始めました。
+何度か魚がエサを食べていました。でも、なかなか釣れませんでした。
+もうあきらめて帰ろうとしたときのことでした。
+ぼくの竿がグーンと大きく曲がりました。あわてて竿をつかみましたが、何も釣れていませんでした。
+「今日はあきらめて帰ろう。」とお父さんが言ったので帰りました。
+魚は釣れなかったけれども、海で遊んだので楽しかったです。
+                        </textarea>
+                    </form>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-3">
+                    <input type="button" id="update" class="btn btn-sm theme" value="更新" data-toggle="modal" data-target="#updModal" />
+                    <input type="button" id="delete" class="btn btn-sm theme_warning" value="削除" data-toggle="modal" data-target="#delModal" />
+                    <input type="button" id="back" class="btn btn-sm theme_cancel" value="戻る"onclick="window.location.href = './diary.html';" />
+                </div>
+                <div class="col-9">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <footer class="border-top footer theme">
+            <div class="container" align="center">
+                &copy; 2020 - Diary_Sample - Privacy
+            </div>
+        </footer>
+        <script src="./lib/jquery/dist/jquery.min.js"></script>
+        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+<!-- Modal -->
+  <div class="modal fade" id="updModal" tabindex="-1" role="dialog" aria-labelledby="updModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header theme_positive">
+          <h5 class="modal-title" id="updModalLabel">更新します。よろしいですか？</h5>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn theme_positive" onclick="window.location.href = './diary.html';">はい</button>
+            <button type="button" class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header theme_warning">
+          <h5 class="modal-title" id="delModalLabel">削除します。よろしいですか？</h5>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn theme_warning" onclick="window.location.href = './menu.html';">はい</button>
+            <button type="button" class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
