@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Diary_Sample.Models;
+using Diary_Sample.Services;
 
 namespace Diary_Sample.Controllers
 {
-    public class HomeController : Controller
+    public class DiaryController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<DiaryController> _logger;
+        private readonly IDiaryService _service;
+        public DiaryController(ILogger<DiaryController> logger, IDiaryService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         public IActionResult Index()
         {
+            _service.index();
             return View();
         }
 
