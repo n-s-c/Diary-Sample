@@ -1,3 +1,8 @@
+// -----------------------------------------------------------------------
+// <copyright file="IndexViewModel.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 

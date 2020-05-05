@@ -1,7 +1,12 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="DiaryRepository.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 using Diary_Sample.Entities;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Diary_Sample.Repositories

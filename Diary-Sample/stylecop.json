@@ -1,0 +1,12 @@
+{
+    "settings": {
+      "orderingRules": {
+        "usingDirectivesPlacement": "outsideNamespace"
+      },
+      "documentationRules": {
+        "companyName": "1-system-group",
+        "copyrightText": "Copyright (c) {companyName}. All rights reserved.",
+        "headerDecoration": "-----------------------------------------------------------------------"
+      }
+    }
+  }

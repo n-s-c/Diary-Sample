@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// -----------------------------------------------------------------------
+// <copyright file="Program.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample
 {

@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// -----------------------------------------------------------------------
+// <copyright file="DiarySampleContext.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+using Microsoft.EntityFrameworkCore;
 
 namespace Diary_Sample.Entities
 {

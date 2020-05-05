@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// -----------------------------------------------------------------------
+// <copyright file="Startup.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+using Diary_Sample.Entities;
+using Diary_Sample.Repositories;
+using Diary_Sample.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Diary_Sample.Services;
-using Diary_Sample.Repositories;
-using Diary_Sample.Entities;
 
 namespace Diary_Sample
 {
