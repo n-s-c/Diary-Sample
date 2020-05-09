@@ -3,6 +3,7 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
 using Diary_Sample.Models;
 using Diary_Sample.Repositories;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,7 @@ namespace Diary_Sample.Services
 
             _repository.read().ForEach(x =>
             {
-                model.diaryList.Add(new DiaryRow(x.id, x.title, x.post_date));
+                model.DiaryList.Add(new DiaryRow(x.id, x.title, x.post_date));
             });
             return model;
         }

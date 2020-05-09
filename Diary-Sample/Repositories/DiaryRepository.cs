@@ -31,7 +31,7 @@ namespace Diary_Sample.Repositories
                    Console.WriteLine($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
                });
             }
-            catch (Exception e)
+            catch (ArgumentNullException e)
             {
                 Console.WriteLine(e.Message);
             }

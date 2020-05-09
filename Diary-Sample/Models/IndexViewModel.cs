@@ -5,24 +5,51 @@
 // -----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Diary_Sample.Models
 {
     public class IndexViewModel
     {
-        public List<DiaryRow> diaryList { get; set; } = new List<DiaryRow>();
+        public List<DiaryRow> DiaryList { get; } = new List<DiaryRow>();
     }
-    public struct DiaryRow
+    public readonly struct DiaryRow : IEquatable<DiaryRow>
     {
-        public string no { get; }
-        public string title { get; }
-        public string postDate { get; }
-
+        public string No { get; }
+        public string Title { get; }
+        public string PostDate { get; }
         public DiaryRow(int id, string title, DateTime post_date)
         {
-            this.no = id.ToString();
-            this.title = title;
-            this.postDate = post_date.ToString();
+            CultureInfo cultureJp = CultureInfo.CreateSpecificCulture("ja-JP");
+
+            this.No = id.ToString("D", cultureJp);
+            this.Title = title;
+            this.PostDate = post_date.ToString("yyyyMMMMdd", cultureJp);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public bool Equals(DiaryRow other)
+        {
+            return No == other.No && this.Title == other.Title && PostDate == other.PostDate;
+        }
+
+        public static bool operator ==(DiaryRow left, DiaryRow right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DiaryRow left, DiaryRow right)
+        {
+            return !(left == right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is DiaryRow row && Equals(row);
         }
     }
 }
