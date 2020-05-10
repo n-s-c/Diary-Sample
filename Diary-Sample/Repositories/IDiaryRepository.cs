@@ -3,8 +3,8 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
-using Diary_Sample.Entities;
 using System.Collections.Generic;
+using Diary_Sample.Entities;
 
 namespace Diary_Sample.Repositories
 {

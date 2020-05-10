@@ -1,13 +1,14 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="DiaryRepository.cs" company="1-system-group">
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
-using Diary_Sample.Entities;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diary_Sample.Entities;
+using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 
 namespace Diary_Sample.Repositories
 {
@@ -28,12 +29,12 @@ namespace Diary_Sample.Repositories
                 result = _context.diary.ToList();
                 result.ForEach(x =>
                {
-                   Console.WriteLine($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
+                   _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
                });
             }
-            catch (ArgumentNullException e)
+            catch (MySqlException e)
             {
-                Console.WriteLine(e.Message);
+                _logger.LogError(e.Message);
             }
 
             return result;

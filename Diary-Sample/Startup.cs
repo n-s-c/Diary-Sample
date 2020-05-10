@@ -24,7 +24,9 @@ namespace Diary_Sample
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        private static void ConfigureServices(IServiceCollection services)
+#pragma warning disable CA1822 // メンバーを static に設定します
+        public void ConfigureServices(IServiceCollection services)
+#pragma warning restore CA1822 // メンバーを static に設定します
         {
             services.AddControllersWithViews();
             services.AddSingleton<IDiaryService, DiaryService>();
@@ -33,7 +35,9 @@ namespace Diary_Sample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        private static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#pragma warning disable CA1822 // メンバーを static に設定します
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#pragma warning restore CA1822 // メンバーを static に設定します
         {
             if (env.IsDevelopment())
             {

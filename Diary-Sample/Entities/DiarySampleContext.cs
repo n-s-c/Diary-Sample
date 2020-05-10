@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // <copyright file="DiarySampleContext.cs" company="1-system-group">
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>

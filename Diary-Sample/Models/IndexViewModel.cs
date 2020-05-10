@@ -22,9 +22,9 @@ namespace Diary_Sample.Models
         {
             CultureInfo cultureJp = CultureInfo.CreateSpecificCulture("ja-JP");
 
-            this.No = id.ToString("D", cultureJp);
-            this.Title = title;
-            this.PostDate = post_date.ToString("yyyyMMMMdd", cultureJp);
+            No = id.ToString("D", cultureJp);
+            Title = title;
+            PostDate = post_date.ToString("yyyyMMMMdd", cultureJp);
         }
 
         public override int GetHashCode()
@@ -34,7 +34,7 @@ namespace Diary_Sample.Models
 
         public bool Equals(DiaryRow other)
         {
-            return No == other.No && this.Title == other.Title && PostDate == other.PostDate;
+            return No == other.No && Title == other.Title && PostDate == other.PostDate;
         }
 
         public static bool operator ==(DiaryRow left, DiaryRow right)
