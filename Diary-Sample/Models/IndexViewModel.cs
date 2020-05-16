@@ -24,7 +24,7 @@ namespace Diary_Sample.Models
 
             No = id.ToString("D", cultureJp);
             Title = title;
-            PostDate = post_date.ToString("yyyyMMMMdd", cultureJp);
+            PostDate = post_date.ToString("yyyy/MM/dd", cultureJp);
         }
 
         public override int GetHashCode()

@@ -12,8 +12,10 @@ namespace Diary_Sample.Services
 {
     public class DiaryService : IDiaryService
     {
+        private const int PageCount = 5;
         private readonly ILogger<DiaryService> _logger;
         private readonly IDiaryRepository _repository;
+
         public DiaryService(ILogger<DiaryService> logger, IDiaryRepository repository)
         {
             _logger = logger;
@@ -24,10 +26,10 @@ namespace Diary_Sample.Services
         {
             IndexViewModel model = new IndexViewModel();
 
-            _repository.read().ForEach(x =>
-            {
-                model.DiaryList.Add(new DiaryRow(x.id, x.title, x.post_date));
-            });
+            _repository.read(1, PageCount).ForEach(x =>
+                 {
+                     model.DiaryList.Add(new DiaryRow(x.id, x.title, x.post_date));
+                 });
             return model;
         }
     }

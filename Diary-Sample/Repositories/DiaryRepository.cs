@@ -21,12 +21,12 @@ namespace Diary_Sample.Repositories
             _logger = logger;
             _context = context;
         }
-        public List<Diary> read()
+        public List<Diary> read(int page, int count)
         {
             List<Diary> result = new List<Diary>();
             try
             {
-                result = _context.diary.ToList();
+                result = _context.diary.OrderByDescending(x => x.post_date).Skip((page - 1) * count).Take(count).ToList();
                 result.ForEach(x =>
                {
                    _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");

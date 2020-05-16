@@ -23,8 +23,8 @@ namespace Diary_Sample.Controllers
 
         public IActionResult Index()
         {
-            _service.index();
-            return View();
+            var model = _service.index();
+            return View(model);
         }
 
         public IActionResult Privacy()
