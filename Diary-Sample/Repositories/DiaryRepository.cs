@@ -40,5 +40,19 @@ namespace Diary_Sample.Repositories
             return result;
         }
 
+        public int readCount()
+        {
+            int count = 0;
+            try
+            {
+                count = _context.diary.Count();
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return count;
+        }
     }
 }

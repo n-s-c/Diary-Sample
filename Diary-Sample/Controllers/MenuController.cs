@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="DiaryController.cs" company="1-system-group">
+// <copyright file="MenuController.cs" company="1-system-group">
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,25 +11,26 @@ using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Controllers
 {
-    public class DiaryController : Controller
+    public class MenuController : Controller
     {
-        private readonly ILogger<DiaryController> _logger;
-        private readonly IDiaryService _service;
-        public DiaryController(ILogger<DiaryController> logger, IDiaryService service)
+        private readonly ILogger<MenuController> _logger;
+        private readonly IMenuService _service;
+        public MenuController(ILogger<MenuController> logger, IMenuService service)
         {
             _logger = logger;
             _service = service;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            var model = _service.index();
-            return View(model);
+            return View(_service.Index());
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Paging(int page)
         {
-            return View();
+            return View("Index", _service.Paging(page));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

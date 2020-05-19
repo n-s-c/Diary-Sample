@@ -29,7 +29,7 @@ namespace Diary_Sample
 #pragma warning restore CA1822 // メンバーを static に設定します
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IDiaryService, DiaryService>();
+            services.AddSingleton<IMenuService, MenuService>();
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
         }
@@ -60,7 +60,7 @@ namespace Diary_Sample
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Diary}/{action=Index}/{id?}");
+                    pattern: "{controller=Menu}/{action=Index}");
             });
         }
     }

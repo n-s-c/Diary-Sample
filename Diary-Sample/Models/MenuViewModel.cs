@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="IndexViewModel.cs" company="1-system-group">
+// <copyright file="MenuViewModel.cs" company="1-system-group">
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,9 +9,17 @@ using System.Globalization;
 
 namespace Diary_Sample.Models
 {
-    public class IndexViewModel
+    public class MenuViewModel
     {
+        // 日記一覧（1ページ分）
         public List<DiaryRow> DiaryList { get; } = new List<DiaryRow>();
+
+        // 全件数
+        public int totalNumber { get; set; } = 0;
+        // 現在のページ
+        public int NowPage { get; set; } = 1;
+        // 全ページ数
+        public int TotalPageNumber { get; set; } = 1;
     }
     public readonly struct DiaryRow : IEquatable<DiaryRow>
     {

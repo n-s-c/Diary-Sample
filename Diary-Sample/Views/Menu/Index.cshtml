@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "メニュー";
 }
-@model IndexViewModel
+@model MenuViewModel
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -29,12 +29,25 @@
         </div>
         <div class="col-7">
             <ul class="pagination justify-content-end">
-                <li class="page-item"><a class="page-link theme" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+@if(Model.NowPage > 1){
+    var prevPage = Model.NowPage - 1;
                 <li class="page-item">
-                    <a class="page-link text-secondary" href="#">&gt;&gt;</a>
+                    <a class="page-link text-secondary" asp-area="" asp-controller="Menu" asp-action="Paging" asp-route-page=@prevPage>&lt;&lt;</a>
                 </li>
+}
+@for(int i = 1; i < Model.TotalPageNumber + 1; i++) {
+    @if (Model.NowPage == i){
+                <li class="page-item"><a class="page-link theme" asp-area="" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    } else {
+                <li class="page-item"><a class="page-link text-secondary" asp-area="" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    }
+}
+@if(Model.NowPage < Model.TotalPageNumber){
+    var nextPage = Model.NowPage + 1;
+                <li class="page-item">
+                    <a class="page-link text-secondary" asp-area="" asp-controller="Menu" asp-action="Paging" asp-route-page=@nextPage>&gt;&gt;</a>
+                </li>
+}
             </ul>
         </div>
         <div class="col-4">

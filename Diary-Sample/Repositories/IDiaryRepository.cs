@@ -11,5 +11,6 @@ namespace Diary_Sample.Repositories
     public interface IDiaryRepository
     {
         public List<Diary> read(int page, int count);
+        public int readCount();
     }
 }
