@@ -15,11 +15,13 @@ namespace Diary_Sample.Models
         public List<DiaryRow> DiaryList { get; } = new List<DiaryRow>();
 
         // 全件数
-        public int totalNumber { get; set; } = 0;
+        public int TotalNumber { get; set; } = 0;
         // 現在のページ
         public int NowPage { get; set; } = 1;
         // 全ページ数
         public int TotalPageNumber { get; set; } = 1;
+        // 通知
+        public string Notification { get; set; } = string.Empty;
     }
     public readonly struct DiaryRow : IEquatable<DiaryRow>
     {

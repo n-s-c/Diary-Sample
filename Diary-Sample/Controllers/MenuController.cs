@@ -20,17 +20,23 @@ namespace Diary_Sample.Controllers
             _logger = logger;
             _service = service;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_service.Index());
+            string notification = TempData["notification"] as string;
+            return View(_service.Index(notification));
         }
-
         [HttpGet]
         public IActionResult Paging(int page)
         {
             return View("Index", _service.Paging(page));
+        }
+
+        [HttpGet]
+        public IActionResult NewEntry()
+        {
+            // 新規登録画面へ遷移
+            return RedirectToAction("index", "Create");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

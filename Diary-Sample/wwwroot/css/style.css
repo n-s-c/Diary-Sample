@@ -1,7 +1,10 @@
 body {
     font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
     font-weight: bold;
-  }
+}
+form {
+    display: inline;
+}
 /**
 * テーマカラー
 * DBで管理できると良いね。

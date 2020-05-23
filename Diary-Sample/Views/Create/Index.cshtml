@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "新規登録";
+}
+@model CreateViewModel
+@if(Model.Notification != string.Empty){
+<!-- toast -->
+<div id="message" class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="toast-header" class="toast-header theme_warning">
+    <strong class="mr-auto">Notification</strong>
+    <small>just now</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="toast-body">
+        <span id="toast_message"></span>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+
+        $('#toast_message').text("@Html.Raw(Model.Notification)");
+        $('#message').toast('show');
+    }
+</script>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form asp-controller="Create" asp-action="Create" method="post">
+                <input class="form-control form-control-lg" type="text" placeholder="タイトルを入力してください" asp-for="Title">
+                <br/>
+                <textarea class="form-control" id="updFormControlTextarea1" rows="15" placeholder="本文を入力してください" asp-for="Content"></textarea>
+                <!-- Modal -->
+                <div class="modal fade" id="updModal" tabindex="-1" role="dialog" aria-labelledby="updModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header theme_positive">
+                            <h5 class="modal-title" id="updModalLabel">登録します。よろしいですか？</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn theme_positive" asp-controller="Create" asp-action="Create">はい</button>
+                                <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-2">
+                <button id="update" class="btn btn-sm theme" data-toggle="modal" data-target="#updModal" >登録</button>
+            <form method="get">
+                <button id="back" class="btn btn-sm theme_cancel" asp-controller="Create" asp-action="Back" >戻る</button>
+            </form>
+        </div>
+        <div class="col-9">
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
