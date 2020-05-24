@@ -35,6 +35,12 @@ namespace Diary_Sample.Controllers
             {
                 throw new ArgumentNullException(nameof(model));
             }
+
+            if (!ModelState.IsValid)
+            {
+                // var errormsgs = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
+                return View("Index", model);
+            }
             if (_service.Create(model))
             {
                 // 登録成功の場合はメニュー画面へ
