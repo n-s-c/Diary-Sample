@@ -34,9 +34,11 @@
                     <th class="title">タイトル</th>
                     <th class="post_date">投稿日</th>
                 </tr>
-@foreach (DiaryRow item in Model.DiaryList) {
+@for(int i = 0; i < Model.DiaryList.Count; i++) {
+var no = i + 1 + ((Model.NowPage - 1) * MenuViewModel.PageCount);
+var item = Model.DiaryList[i];
                 <tr class="theme_diary_content">
-                    <td>@item.No</td>
+                    <td>@no</td>
                     <td><a href="./diary.html">@item.Title</a></td>
                     <td>@item.PostDate</td>
                 </tr>

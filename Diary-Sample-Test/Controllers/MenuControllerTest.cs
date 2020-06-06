@@ -3,6 +3,7 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System.Collections.Generic;
 using Diary_Sample.Controllers;
 using Diary_Sample.Models;
 using Diary_Sample.Services;
@@ -27,8 +28,8 @@ namespace Diary_Sample_Test.Controllers
             mockLogger = new Mock<ILogger<MenuController>>();
             mockService = new Mock<IMenuService>();
             httpContext = new DefaultHttpContext();
-            mockService.Setup(x => x.Index(null)).Returns(new MenuViewModel());
-            mockService.Setup(x => x.Paging(1)).Returns(new MenuViewModel());
+            mockService.Setup(x => x.Index(null)).Returns(new MenuViewModel(new List<DiaryRow>(), 1, 1, string.Empty));
+            mockService.Setup(x => x.Paging(1)).Returns(new MenuViewModel(new List<DiaryRow>(), 1, 1, string.Empty));
             tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
         }
         [Fact]
