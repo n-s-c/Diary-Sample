@@ -4,8 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Collections.Generic;
-using Diary_Sample.Entities;
+using System.Linq;
 using Diary_Sample.Models;
 using Diary_Sample.Repositories;
 using Microsoft.Extensions.Logging;
@@ -25,37 +24,51 @@ namespace Diary_Sample.Services
             _repository = repository;
         }
 
-        public MenuViewModel Index()
+        public MenuViewModel Index(string notification)
         {
-            return createModel(InitialPage);
+            return createModel(InitialPage, notification);
         }
 
         public MenuViewModel Paging(int page)
         {
-            return createModel(page);
+            return createModel(page, string.Empty);
         }
+        private static int createNo(int index, int page)
+        {
+            // indexは0から始まるので1加算する
+            index++;
 
-        private MenuViewModel createModel(int page)
+            // pageは1から始まるので1減算する
+            page--;
+
+            // 日記一覧のNoを計算返却する
+            return index + (page * PageCount);
+        }
+        private MenuViewModel createModel(int page, string notification)
         {
             MenuViewModel model = new MenuViewModel();
 
             // 一覧データ設定
-            _repository.read(page, PageCount).ForEach(x =>
+            _repository.read(page, PageCount).Select((diary, index) => new { diary, index }).ToList().ForEach(x =>
                  {
-                     model.DiaryList.Add(new DiaryRow(x.id, x.title, x.post_date));
+                     model.DiaryList.Add(new DiaryRow(createNo(x.index, page), x.diary.title, x.diary.post_date));
                  });
 
             // 全件数設定
-            model.totalNumber = _repository.readCount();
+            model.TotalNumber = _repository.readCount();
 
             // 現在のページ設定
             model.NowPage = page;
 
             // 全ページ数設定
             model.TotalPageNumber =
-                model.totalNumber % PageCount == 0
-                    ? model.totalNumber / PageCount : (model.totalNumber / PageCount) + 1;
+                model.TotalNumber % PageCount == 0
+                    ? model.TotalNumber / PageCount : (model.TotalNumber / PageCount) + 1;
 
+            if (!string.IsNullOrEmpty(notification))
+            {
+                model.Notification = notification;
+            }
             return model;
         }
     }

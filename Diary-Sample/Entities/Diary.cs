@@ -4,11 +4,20 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diary_Sample.Entities
 {
+    [Table("diary")]
     public class Diary
     {
+        public Diary(string title, string content)
+        {
+            this.title = title;
+            this.content = content;
+            post_date = DateTime.Now;
+            update_date = DateTime.Now;
+        }
         public int id { get; set; }
         public string title { get; set; }
         public string content { get; set; }

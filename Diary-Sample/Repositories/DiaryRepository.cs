@@ -3,7 +3,6 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Diary_Sample.Entities;
@@ -16,10 +15,25 @@ namespace Diary_Sample.Repositories
     {
         private readonly ILogger<DiaryRepository> _logger;
         private readonly DiarySampleContext _context;
+
         public DiaryRepository(ILogger<DiaryRepository> logger, DiarySampleContext context)
         {
             _logger = logger;
             _context = context;
+        }
+
+        public bool create(Diary diary)
+        {
+            try
+            {
+                _context.Add(diary);
+                return _context.SaveChanges() > 0;
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+            }
+            return false;
         }
         public List<Diary> read(int page, int count)
         {

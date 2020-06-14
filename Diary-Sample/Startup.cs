@@ -30,6 +30,7 @@ namespace Diary_Sample
         {
             services.AddControllersWithViews();
             services.AddSingleton<IMenuService, MenuService>();
+            services.AddSingleton<ICreateService, CreateService>();
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
         }

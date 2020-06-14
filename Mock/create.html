@@ -2,9 +2,12 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>メニュー</title>
+        <title>新規登録</title>
         <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="./css/style.css" />
+        <script src="./lib/jquery/dist/jquery.min.js"></script>
+        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./lib/js.cookie.min.js"></script>
     </head>
     <body class="theme_background">
         <header>
@@ -60,8 +63,6 @@
                 &copy; 2020 - Diary_Sample - Privacy
             </div>
         </footer>
-        <script src="./lib/jquery/dist/jquery.min.js"></script>
-        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 <!-- Modal -->
   <div class="modal fade" id="updModal" tabindex="-1" role="dialog" aria-labelledby="updModalLabel" aria-hidden="true">
@@ -71,8 +72,8 @@
           <h5 class="modal-title" id="updModalLabel">登録します。よろしいですか？</h5>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn theme_positive" onclick="window.location.href = './menu.html';">はい</button>
-            <button type="button" class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+            <button class="btn theme_positive" onclick="Cookies.set('msg', '登録が完了しました。');window.location.href = './menu.html';">はい</button>
+            <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
         </div>
       </div>
     </div>
