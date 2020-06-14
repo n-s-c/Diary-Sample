@@ -1,8 +1,14 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+// -----------------------------------------------------------------------
+// <copyright file="DiaryRepository.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
-using Diary_Sample.Entities;
 using System.Linq;
+using Diary_Sample.Entities;
+using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 
 namespace Diary_Sample.Repositories
 {
@@ -15,24 +21,38 @@ namespace Diary_Sample.Repositories
             _logger = logger;
             _context = context;
         }
-        public List<Diary> read()
+        public List<Diary> read(int page, int count)
         {
             List<Diary> result = new List<Diary>();
             try
             {
-                result = _context.diary.ToList();
+                result = _context.diary.OrderByDescending(x => x.post_date).Skip((page - 1) * count).Take(count).ToList();
                 result.ForEach(x =>
                {
-                   Console.WriteLine($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
+                   _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
                });
             }
-            catch (Exception e)
+            catch (MySqlException e)
             {
-                Console.WriteLine(e.Message);
+                _logger.LogError(e.Message);
             }
 
             return result;
         }
 
+        public int readCount()
+        {
+            int count = 0;
+            try
+            {
+                count = _context.diary.Count();
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return count;
+        }
     }
 }

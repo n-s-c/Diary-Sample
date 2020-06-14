@@ -4,9 +4,14 @@
     <RootNamespace>Diary_Sample</RootNamespace>
     <UserSecretsId>13bb3e9b-318c-463c-86b7-e4ffbdbce271</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <CodeAnalysisRuleSet>Analyzers.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8"/>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19"/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118"/>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0"/>
+    <PackageReference Include="AspNetCore.RouteAnalyzer" Version="0.5.3"/>
+    <AdditionalFiles Include="stylecop.json" Link="stylecop.json"/>
   </ItemGroup>
 </Project>

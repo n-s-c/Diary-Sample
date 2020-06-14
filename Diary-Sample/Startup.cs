@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// -----------------------------------------------------------------------
+// <copyright file="Startup.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+using Diary_Sample.Entities;
+using Diary_Sample.Repositories;
+using Diary_Sample.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Diary_Sample.Services;
-using Diary_Sample.Repositories;
-using Diary_Sample.Entities;
 
 namespace Diary_Sample
 {
@@ -24,16 +24,20 @@ namespace Diary_Sample
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+#pragma warning disable CA1822 // メンバーを static に設定します
         public void ConfigureServices(IServiceCollection services)
+#pragma warning restore CA1822 // メンバーを static に設定します
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IDiaryService, DiaryService>();
+            services.AddSingleton<IMenuService, MenuService>();
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+#pragma warning disable CA1822 // メンバーを static に設定します
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#pragma warning restore CA1822 // メンバーを static に設定します
         {
             if (env.IsDevelopment())
             {
@@ -56,7 +60,7 @@ namespace Diary_Sample
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Diary}/{action=Index}/{id?}");
+                    pattern: "{controller=Menu}/{action=Index}");
             });
         }
     }

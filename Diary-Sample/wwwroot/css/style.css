@@ -1,0 +1,96 @@
+body {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+  }
+/**
+* テーマカラー
+* DBで管理できると良いね。
+*/
+.theme {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme:hover {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme_background {
+    color: black;
+    background-color: rgb(238, 247, 255);
+}
+.theme_positive {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_positive:hover {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_warning {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_warning:hover {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_cancel{
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+.theme_cancel:hover {
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+
+.theme_diary_title {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_diary_title:hover{
+    color:white !important;
+    background-color: rgb(8, 209, 75) !important;
+}
+.theme_diary_content {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:gray;
+    background-color: rgb(246, 255, 214);
+}
+/**
+* リンク
+*/
+a{
+    color: rgb(3, 97, 185);
+}
+a:hover{
+    color: rgb(15, 219, 49);
+}
+
+/**
+* 一覧
+*/
+table.diary_list {
+    font-size:10pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table.diary_list th.no {
+    width: 5%;
+}
+table.diary_list th.post_date {
+    width: 10%;
+}
+table.diary_list th.edit {
+    width: 5%;
+}
+table.diary_list th {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+}
+table.diary_list td {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+}
