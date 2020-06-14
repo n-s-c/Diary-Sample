@@ -1,0 +1,32 @@
+﻿
+@model Diary_Sample.Models.EditViewModel
+
+@{
+   // ViewData["Title"] = "Edit";
+}
+
+    <form method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="タイトルを入力してください" value="@Model.Title">
+                    <br />
+                    <textarea class="form-control" id="content" name="content" rows="15" placeholder="本文を入力してください">@Model.Content</textarea>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-3">
+                    <button id="update" class="btn btn-sm theme" asp-controller="edit" asp-action="edit" asp-route-id="@Model.Id">更新</button>
+                    <button id="delete" class="btn btn-sm theme_warning" asp-controller="edit" asp-action="delete" asp-route-id="@Model.Id">削除</button>
+                    <button id="back" class="btn btn-sm theme_cancel" asp-controller="diary" asp-action="index">戻る</button>
+                </div>
+                <div class="col-9">
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </form>
