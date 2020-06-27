@@ -10,7 +10,7 @@ namespace Diary_Sample.Entities
 {
     public partial class DiarySampleContext : DbContext
     {
-        public DbSet<Diary> diary { get; set; }
+        public DbSet<Diary>? diary { get; set; }
         public static readonly ILoggerFactory MySQLLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

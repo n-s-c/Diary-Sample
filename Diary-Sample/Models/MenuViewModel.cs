@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Diary_Sample.Models
 {
@@ -24,7 +23,7 @@ namespace Diary_Sample.Models
             TotalPageNumber = TotalNumber % PageCount == 0
                     ? TotalNumber / PageCount : (TotalNumber / PageCount) + 1;
 
-            Notification = string.IsNullOrEmpty(notification) ? string.Empty : notification;
+            Notification = notification;
 
         }
         // 日記一覧（1ページ分）
@@ -73,7 +72,7 @@ namespace Diary_Sample.Models
             return !(left == right);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is DiaryRow row && Equals(row);
         }
