@@ -38,7 +38,6 @@ namespace Diary_Sample.Controllers
 
             if (!ModelState.IsValid)
             {
-                // var errormsgs = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
                 return View("Index", model);
             }
             if (_service.Create(model))

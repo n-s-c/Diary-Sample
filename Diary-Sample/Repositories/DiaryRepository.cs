@@ -32,41 +32,52 @@ namespace Diary_Sample.Repositories
             catch (MySqlException e)
             {
                 _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+                throw;
             }
-            return false;
         }
         public List<Diary> read(int page, int count)
         {
-            List<Diary> result = new List<Diary>();
             try
             {
-                result = _context.diary.OrderByDescending(x => x.post_date).Skip((page - 1) * count).Take(count).ToList();
-                result.ForEach(x =>
-               {
-                   _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
-               });
+                return _context.diary
+                    .OrderByDescending(x => x.post_date)
+                    .Skip((page - 1) * count)
+                    .Take(count)
+                    .ToList()
+                    .Select(x =>
+                    {
+                        outputLog(x);
+                        return x;
+                    })
+                    .ToList();
             }
             catch (MySqlException e)
             {
                 _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+                throw;
             }
-
-            return result;
         }
 
         public int readCount()
         {
-            int count = 0;
             try
             {
-                count = _context.diary.Count();
+                return _context.diary.Count();
             }
             catch (MySqlException e)
             {
                 _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+                throw;
             }
+        }
 
-            return count;
+        private void outputLog(Diary x)
+        {
+            // DBから取得した内容をログに出力
+            _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
         }
     }
 }
