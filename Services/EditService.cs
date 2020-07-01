@@ -1,0 +1,75 @@
+// -----------------------------------------------------------------------
+// <copyright file="EditService.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
+using System.Linq;
+using Diary_Sample.Entities;
+using Diary_Sample.Models;
+using Diary_Sample.Repositories;
+
+namespace Diary_Sample.Services
+{
+    public class EditService : IEditService
+    {
+        private readonly IDiaryRepository _repository;
+
+        public EditService(IDiaryRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public EditViewModel? GetDiary(string id)
+        {
+            var diaryList = GetById(id);
+            if (diaryList.Count == 0)
+            {
+                return null;
+            }
+
+            var diary = diaryList.First();
+            EditViewModel? viewModel = new EditViewModel
+            {
+                Id = diary.id.ToString(),
+                Title = diary.title,
+                Content = diary.content,
+            };
+
+            return viewModel;
+        }
+
+        public bool UpdateDiary(EditViewModel editViewModel)
+        {
+            return UpdateById(editViewModel.Id, editViewModel.Title, editViewModel.Content);
+        }
+
+        public bool DeleteDiary(string id)
+        {
+            return DeleteById(id);
+        }
+
+        private List<Diary> GetById(string id)
+        {
+            var diaryList = _repository.Read(int.Parse(id));
+            if (diaryList.Count != 1)
+            {
+                return new List<Diary>();
+            }
+
+            return diaryList;
+        }
+
+        private bool UpdateById(string id, string title, string content)
+        {
+            Diary diary = new Diary(int.Parse(id), title, content);
+            return _repository.Update(diary);
+        }
+
+        private bool DeleteById(string id)
+        {
+            return _repository.Delete(id);
+        }
+    }
+}

@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "メニュー";
+}
+@model MenuViewModel
+@if(Model.Notification != string.Empty){
+<!-- toast -->
+<div id="message" class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="toast-header" class="toast-header bg-warning">
+    <strong class="mr-auto">Notification</strong>
+    <small>just now</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="toast-body">
+        <span id="toast_message"></span>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+
+        $('#toast_message').text("@Html.Raw(Model.Notification)");
+        $('#message').toast('show');
+    }
+</script>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <table class="table table-bordered table-hover diary_list">
+                <tr class="theme_diary_title">
+                    <th class="no">No</th>
+                    <th class="title">タイトル</th>
+                    <th class="post_date">投稿日</th>
+                </tr>
+@for(int i = 0; i < Model.DiaryList.Count; i++) {
+var no = i + 1 + ((Model.NowPage - 1) * MenuViewModel.PageCount);
+var item = Model.DiaryList[i];
+                <tr class="theme_diary_content">
+                    <td>@no</td>
+                    <td><a asp-controller="Refer" asp-action="Index" asp-route-id=@item.Id >@item.Title</a></td>
+                    <td>@item.PostDate</td>
+                </tr>
+}
+            </table>
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+            <form method="get">
+                <button id="create" class="btn btn-sm theme text-nowrap" asp-controller="Menu" asp-action="NewEntry">新規登録</button>
+            </form>
+        </div>
+        <div class="col-7">
+            <ul class="pagination justify-content-end">
+@if(Model.NowPage > 1){
+    var prevPage = Model.NowPage - 1;
+                <li class="page-item">
+                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@prevPage>&lt;&lt;</a>
+                </li>
+}
+@for(int i = 1; i < Model.TotalPageNumber + 1; i++) {
+    @if (Model.NowPage == i){
+                <li class="page-item"><a class="page-link theme" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    } else {
+                <li class="page-item"><a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    }
+}
+@if(Model.NowPage < Model.TotalPageNumber){
+    var nextPage = Model.NowPage + 1;
+                <li class="page-item">
+                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@nextPage>&gt;&gt;</a>
+                </li>
+}
+            </ul>
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
