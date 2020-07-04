@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "メニュー";
 }
 @model MenuViewModel
@@ -39,7 +39,7 @@ var no = i + 1 + ((Model.NowPage - 1) * MenuViewModel.PageCount);
 var item = Model.DiaryList[i];
                 <tr class="theme_diary_content">
                     <td>@no</td>
-                    <td><a href="./diary.html">@item.Title</a></td>
+                    <td><a asp-controller="Refer" asp-action="Index" asp-route-id=@item.Id >@item.Title</a></td>
                     <td>@item.PostDate</td>
                 </tr>
 }

@@ -13,5 +13,8 @@ namespace Diary_Sample.Repositories
         public bool create(Diary diary);
         public List<Diary> read(int page, int count);
         public int readCount();
+        public List<Diary> Read(int id);
+        public bool Update(Diary diary);
+        public bool Delete(string id);
     }
 }

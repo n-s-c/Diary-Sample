@@ -3,6 +3,7 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Diary_Sample.Entities;
@@ -67,6 +68,58 @@ namespace Diary_Sample.Repositories
             }
 
             return count;
+        }
+
+        public List<Diary> Read(int id)
+        {
+            List<Diary> result = new List<Diary>();
+            try
+            {
+                result = _context.diary.Where(x => x.id == id).ToList();
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+            }
+
+            return result;
+        }
+
+        public bool Update(Diary diary)
+        {
+            try
+            {
+                var record = _context.diary.ToList().Single(x => x.id == diary.id);
+                record.title = diary.title;
+                record.content = diary.content;
+                record.update_date = diary.update_date;
+                _context.SaveChanges();
+
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
+            return true;
+
+        }
+
+        public bool Delete(string id)
+        {
+            try
+            {
+                var record = _context.diary.ToList().Single(x => x.id == int.Parse(id));
+                _context.diary.Remove(record);
+                _context.SaveChanges();
+
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
+            return true;
         }
     }
 }

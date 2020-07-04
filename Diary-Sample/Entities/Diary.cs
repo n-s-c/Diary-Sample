@@ -18,6 +18,15 @@ namespace Diary_Sample.Entities
             post_date = DateTime.Now;
             update_date = DateTime.Now;
         }
+
+        public Diary(int id, string title, string content)
+        {
+            this.id = id;
+            this.title = title;
+            this.content = content;
+            update_date = DateTime.Now;
+        }
+
         public int id { get; set; }
         public string title { get; set; }
         public string content { get; set; }
