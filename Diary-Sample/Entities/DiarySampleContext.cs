@@ -23,7 +23,7 @@ namespace Diary_Sample.Entities
                 // TODO DB設定は後で設定ファイルに持つようにする・環境ごとに設定を変更できるようにする
                 optionsBuilder
                 .UseLoggerFactory(MySQLLoggerFactory)
-                .UseMySQL(@"server=localhost;port=3306;database=DiarySample;userid=user;pwd=password;sslmode=Required;");
+                .UseMySQL(@"server=db;port=3306;database=DiarySample;userid=user;pwd=password;sslmode=Required;");
             }
         }
     }

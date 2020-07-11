@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploy
+
+      env:
+        SECRET_KEY: ${{ secrets.EC2_SECRET_KEY }}
+        EC2_USER: ${{ secrets.EC2_USER }}
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+      run: |
+        echo "$SECRET_KEY" > secret_key
+        chmod 600 secret_key
+        ssh -oStrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} -i secret_key "
+          # Diary-Sampleが起動中の場合は停止する
+          if [ 'docker container ls -q -f name=diary_sample_app_1' ];then docker stop diary_sample_app_1; fi && 
+          if [ -f Diary-Sample/Diary-Sample/docker-compose.yml ];then docker-compose -f Diary-Sample/Diary-Sample/docker-compose.yml down; fi && 
+          # Dockerコンテナが存在する場合に削除する
+          if [ 'docker container ls -a -q -f name=diary_sample_app_1' ];then docker rm diary_sample_app_1; fi && 
+          # Dockerイメージが存在する場合に削除する
+          if [ 'docker image ls -q diary_sample_app_1' ];then docker rmi diary_sample_app_1; fi && 
+          # Diary-Sampleを削除する
+          rm -rf Diary-Sample && 
+          # Diary-Sampleをクローンする
+          git clone https://github.com/1-system-group/Diary-Sample.git && 
+          # Diary-Sampleを起動する
+          docker-compose -f Diary-Sample/Diary-Sample/docker-compose.yml up -d && 
+          docker build -f Diary-Sample/Diary-Sample/Dockerfile -t diary_sample_app_1 Diary-Sample/Diary-Sample/.. && 
+          docker run -d --name diary_sample_app_1 --network diary-sample_default -p 80:80 diary_sample_app_1"
