@@ -15,6 +15,6 @@ namespace Diary_Sample.Repositories
         public int readCount();
         public List<Diary> Read(int id);
         public bool Update(Diary diary);
-        public bool Delete(string id);
+        public bool Delete(int id);
     }
 }

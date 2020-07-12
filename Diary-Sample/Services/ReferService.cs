@@ -20,7 +20,7 @@ namespace Diary_Sample.Services
             _repository = repository;
         }
 
-        public ReferViewModel? GetDiary(string id)
+        public ReferViewModel? GetDiary(int id)
         {
             var diary = GetById(id);
             if (diary == null)
@@ -37,9 +37,9 @@ namespace Diary_Sample.Services
             return viewModel;
         }
 
-        private Diary? GetById(string id)
+        private Diary? GetById(int id)
         {
-            var diaryList = _repository.Read(int.Parse(id));
+            var diaryList = _repository.Read(id);
             if (diaryList.Count != 1)
             {
                 return null;

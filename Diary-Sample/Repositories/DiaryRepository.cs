@@ -80,6 +80,8 @@ namespace Diary_Sample.Repositories
             catch (MySqlException e)
             {
                 _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+                throw;
             }
 
             return result;
@@ -89,7 +91,7 @@ namespace Diary_Sample.Repositories
         {
             try
             {
-                var record = _context.diary.ToList().Single(x => x.id == diary.id);
+                var record = _context.diary.Single(x => x.id == diary.id);
                 record.title = diary.title;
                 record.content = diary.content;
                 record.update_date = diary.update_date;
@@ -105,18 +107,23 @@ namespace Diary_Sample.Repositories
 
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             try
             {
-                var record = _context.diary.ToList().Single(x => x.id == int.Parse(id));
+                var record = _context.diary.Single(x => x.id == id);
                 _context.diary.Remove(record);
                 _context.SaveChanges();
 
             }
-            catch (MySqlException e)
+            catch (InvalidOperationException ie)
             {
-                _logger.LogError(e.Message);
+                _logger.LogError(ie.Message);
+                return false;
+            }
+            catch (MySqlException me)
+            {
+                _logger.LogError(me.Message);
                 return false;
             }
             return true;

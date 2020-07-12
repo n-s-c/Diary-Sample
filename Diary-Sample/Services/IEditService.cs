@@ -10,8 +10,8 @@ namespace Diary_Sample.Services
 {
     public interface IEditService
     {
-        public EditViewModel? GetDiary(string id);
+        public EditViewModel? GetDiary(int id);
         public bool UpdateDiary(EditViewModel editViewModel);
-        public bool DeleteDiary(string id);
+        public bool DeleteDiary(int id);
     }
 }

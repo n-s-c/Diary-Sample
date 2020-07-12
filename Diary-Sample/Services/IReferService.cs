@@ -10,6 +10,6 @@ namespace Diary_Sample.Services
 {
     public interface IReferService
     {
-        public ReferViewModel? GetDiary(string id);
+        public ReferViewModel? GetDiary(int id);
     }
 }

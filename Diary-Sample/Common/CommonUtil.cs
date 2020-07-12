@@ -9,24 +9,25 @@ namespace Diary_Sample.Common
     public class CommonUtil
     {
         private const int MaxIdValue = 16777215;
-        public static bool CheckId(string id)
+        private const int MinIdValue = 1;
+        public static int ConvAcceptId(string id)
         {
             if (id == null)
             {
-                return false;
+                return -1;
             }
-            int i;
-            bool ret = int.TryParse(id, out i);
+            int num;
+            bool ret = int.TryParse(id, out num);
             if (!ret)
             {
-                return false;
+                return -1;
             }
-            if (i >= MaxIdValue)
+            if ((num <= MinIdValue) && (num >= MaxIdValue))
             {
-                return false;
+                return -1;
             }
 
-            return true;
+            return num;
         }
     }
 }

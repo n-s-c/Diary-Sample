@@ -20,6 +20,12 @@ namespace Diary_Sample.Controllers
 
         private const string DeleteOkMessage = "削除しました。";
 
+        private const string IdNoFoundMessage = "日記が見つかりませんでした。";
+
+        private const string EditFailMessage = "更新できませんでした。";
+
+        private const string DeleteFailMessage = "すでに削除されています。";
+
         public EditController(IEditService service)
         {
             _service = service;
@@ -28,15 +34,16 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         public IActionResult Index(string id)
         {
-            if (!CommonUtil.CheckId(id))
+            int numId = CommonUtil.ConvAcceptId(id);
+            if (numId == -1)
             {
-                return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return IdNotFound();
             }
 
-            var viewModel = _service.GetDiary(id);
+            var viewModel = _service.GetDiary(numId);
             if (viewModel == null)
             {
-                return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return IdNotFound();
             }
 
             return View(viewModel);
@@ -47,34 +54,43 @@ namespace Diary_Sample.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return View("Index", editViewModel);
             }
 
             var ret = _service.UpdateDiary(editViewModel);
             if (!ret)
             {
-                return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["notification"] = EditFailMessage;
+                return RedirectToAction("Index", "Menu");
             }
 
-            return RedirectToAction("Index", "Refer", new {id = editViewModel.Id });
+            return RedirectToAction("Index", "Refer", new { id = editViewModel.Id });
 
         }
 
-        [HttpGet]
-        public IActionResult Delete(string id)
+        [HttpPost]
+        public IActionResult Delete(EditViewModel editViewModel)
         {
-            if (id == null)
+            int numId = CommonUtil.ConvAcceptId(editViewModel.Id);
+            if (numId == -1)
             {
                 return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
 
-            var ret = _service.DeleteDiary(id);
+            var ret = _service.DeleteDiary(numId);
             if (!ret)
             {
-                return View(ErrorPath, new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["notification"] = DeleteFailMessage;
+                return RedirectToAction("Index", "Menu");
             }
 
             TempData["notification"] = DeleteOkMessage;
+            return RedirectToAction("Index", "Menu");
+        }
+
+        private IActionResult IdNotFound()
+        {
+            TempData["notification"] = IdNoFoundMessage;
             return RedirectToAction("Index", "Menu");
         }
     }

@@ -21,7 +21,7 @@ namespace Diary_Sample.Services
             _repository = repository;
         }
 
-        public EditViewModel? GetDiary(string id)
+        public EditViewModel? GetDiary(int id)
         {
             var diaryList = GetById(id);
             if (diaryList.Count == 0)
@@ -42,17 +42,17 @@ namespace Diary_Sample.Services
 
         public bool UpdateDiary(EditViewModel editViewModel)
         {
-            return UpdateById(editViewModel.Id, editViewModel.Title, editViewModel.Content);
+            return UpdateById(int.Parse(editViewModel.Id), editViewModel.Title, editViewModel.Content);
         }
 
-        public bool DeleteDiary(string id)
+        public bool DeleteDiary(int id)
         {
             return DeleteById(id);
         }
 
-        private List<Diary> GetById(string id)
+        private List<Diary> GetById(int id)
         {
-            var diaryList = _repository.Read(int.Parse(id));
+            var diaryList = _repository.Read(id);
             if (diaryList.Count != 1)
             {
                 return new List<Diary>();
@@ -61,13 +61,13 @@ namespace Diary_Sample.Services
             return diaryList;
         }
 
-        private bool UpdateById(string id, string title, string content)
+        private bool UpdateById(int id, string title, string content)
         {
-            Diary diary = new Diary(int.Parse(id), title, content);
+            Diary diary = new Diary(id, title, content);
             return _repository.Update(diary);
         }
 
-        private bool DeleteById(string id)
+        private bool DeleteById(int id)
         {
             return _repository.Delete(id);
         }

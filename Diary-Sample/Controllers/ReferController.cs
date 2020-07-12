@@ -24,12 +24,13 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         public IActionResult Index(string id)
         {
-            if (!CommonUtil.CheckId(id))
+            int numId = CommonUtil.ConvAcceptId(id);
+            if (numId == -1)
             {
                 return IdNotFound();
             }
 
-            var viewModel = _service.GetDiary(id);
+            var viewModel = _service.GetDiary(numId);
             if (viewModel == null)
             {
                 return IdNotFound();
