@@ -4,6 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Linq;
 using Diary_Sample.Entities;
 using Diary_Sample.Models;
@@ -22,12 +23,14 @@ namespace Diary_Sample.Services
 
         public ReferViewModel? GetDiary(int id)
         {
-            var diary = GetById(id);
-            if (diary == null)
+            var diaryList = GetById(id);
+            if (diaryList.Count == 0)
             {
                 return null;
             }
-            ReferViewModel viewModel = new ReferViewModel
+
+            var diary = diaryList.First();
+            ReferViewModel? viewModel = new ReferViewModel
             {
                 Id = diary.id.ToString(),
                 Title = diary.title,
@@ -37,15 +40,15 @@ namespace Diary_Sample.Services
             return viewModel;
         }
 
-        private Diary? GetById(int id)
+        private List<Diary> GetById(int id)
         {
             var diaryList = _repository.Read(id);
             if (diaryList.Count != 1)
             {
-                return null;
+                return new List<Diary>();
             }
 
-            return diaryList.Single();
+            return diaryList;
         }
     }
 }
