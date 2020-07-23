@@ -17,9 +17,9 @@ namespace Diary_Sample_Test.Services
 {
     public class MenuServiceTest
     {
-        private Mock<ILogger<MenuService>> mockLogger;
-        private Mock<IDiaryRepository> mockRepository;
-        private MenuService service;
+        private readonly Mock<ILogger<MenuService>> mockLogger;
+        private readonly Mock<IDiaryRepository> mockRepository;
+        private readonly MenuService service;
         public MenuServiceTest()
         {
             mockLogger = new Mock<ILogger<MenuService>>();
@@ -34,10 +34,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(0);
 
             // Indexメソッドのテスト
-            var result = service.Index("test");
+            MenuViewModel result = service.Index("test");
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(0, model.TotalNumber);
             Assert.Equal(0, model.TotalPageNumber);
             Assert.Equal("test", model.Notification);
@@ -52,10 +52,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(1);
 
             // Indexメソッドのテスト
-            var result = service.Index("test");
+            MenuViewModel result = service.Index("test");
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(1, model.TotalNumber);
             Assert.Equal(1, model.TotalPageNumber);
             Assert.Equal("test", model.Notification);
@@ -70,10 +70,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(5);
 
             // Indexメソッドのテスト
-            var result = service.Index("test");
+            MenuViewModel result = service.Index("test");
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(5, model.TotalNumber);
             Assert.Equal(1, model.TotalPageNumber);
             Assert.Equal("test", model.Notification);
@@ -87,10 +87,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(0);
 
             // Pagingメソッドのテスト
-            var result = service.Paging(1);
+            MenuViewModel result = service.Paging(1);
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(0, model.TotalNumber);
             Assert.Equal(0, model.TotalPageNumber);
             Assert.Empty(model.Notification);
@@ -105,10 +105,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(1);
 
             // Pagingメソッドのテスト
-            var result = service.Paging(1);
+            MenuViewModel result = service.Paging(1);
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(1, model.TotalNumber);
             Assert.Equal(1, model.TotalPageNumber);
             Assert.Empty(model.Notification);
@@ -123,10 +123,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(6);
 
             // Pagingメソッドのテスト
-            var result = service.Paging(1);
+            MenuViewModel result = service.Paging(1);
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(6, model.TotalNumber);
             Assert.Equal(2, model.TotalPageNumber);
             Assert.Empty(model.Notification);
@@ -141,10 +141,10 @@ namespace Diary_Sample_Test.Services
             mockRepository.Setup(x => x.readCount()).Returns(6);
 
             // Pagingメソッドのテスト
-            var result = service.Paging(2);
+            MenuViewModel result = service.Paging(2);
 
             // 返却値の確認
-            var model = Assert.IsType<MenuViewModel>(result);
+            MenuViewModel model = Assert.IsType<MenuViewModel>(result);
             Assert.Equal(6, model.TotalNumber);
             Assert.Equal(2, model.TotalPageNumber);
             Assert.Empty(model.Notification);

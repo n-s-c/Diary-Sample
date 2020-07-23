@@ -23,7 +23,7 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            string notification = TempData["notification"] as string;
+            string notification = TempData?["notification"] as string ?? string.Empty;
             return View(_service.Index(notification));
         }
         [HttpGet]
