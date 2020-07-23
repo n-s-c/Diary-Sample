@@ -63,7 +63,7 @@ namespace Diary_Sample.Services
 
         private bool UpdateById(int id, string title, string content)
         {
-            Diary diary = new Diary(id, title, content);
+            var diary = new Diary(id, title, content);
             return _repository.Update(diary);
         }
 

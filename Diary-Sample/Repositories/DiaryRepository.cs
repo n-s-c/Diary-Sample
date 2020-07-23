@@ -72,7 +72,7 @@ namespace Diary_Sample.Repositories
 
         public List<Diary> Read(int id)
         {
-            List<Diary> result = new List<Diary>();
+            var result = new List<Diary>();
             try
             {
                 result = _context.diary.Where(x => x.id == id).ToList();
@@ -98,10 +98,17 @@ namespace Diary_Sample.Repositories
                 _context.SaveChanges();
 
             }
-            catch (MySqlException e)
+            catch (InvalidOperationException ie)
             {
-                _logger.LogError(e.Message);
+                _logger.LogError(ie.Message);
+                _logger.LogError(ie.StackTrace);
                 return false;
+            }
+            catch (MySqlException me)
+            {
+                _logger.LogError(me.Message);
+                _logger.LogError(me.StackTrace);
+                throw;
             }
             return true;
 
@@ -119,12 +126,14 @@ namespace Diary_Sample.Repositories
             catch (InvalidOperationException ie)
             {
                 _logger.LogError(ie.Message);
+                _logger.LogError(ie.StackTrace);
                 return false;
             }
             catch (MySqlException me)
             {
                 _logger.LogError(me.Message);
-                return false;
+                _logger.LogError(me.StackTrace);
+                throw;
             }
             return true;
         }
