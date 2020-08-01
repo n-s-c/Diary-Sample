@@ -45,7 +45,7 @@ namespace Diary_Sample_Test.Controllers
 
             // 返却値の型を確認
             ViewResult viewResult = Assert.IsType<ViewResult>(result);
-            MenuViewModel model = Assert.IsType<MenuViewModel>(viewResult.ViewData.Model);
+            Assert.IsType<MenuViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }
@@ -62,7 +62,7 @@ namespace Diary_Sample_Test.Controllers
 
             // 返却値の型を確認
             ViewResult viewResult = Assert.IsType<ViewResult>(result);
-            MenuViewModel model = Assert.IsType<MenuViewModel>(viewResult.ViewData.Model);
+            Assert.IsType<MenuViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }
