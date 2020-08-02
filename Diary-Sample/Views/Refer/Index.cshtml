@@ -1,0 +1,39 @@
+
+@model Diary_Sample.Models.ReferViewModel
+
+@{
+    ViewData["Title"] = "日記";
+}
+
+<form method="get">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="card border-info mb-3">
+                    <div class="card-header theme_diary_title">
+                        <h5><b>@Model.Title</b></h5>
+                        <div align="right">
+                            <a id="edit" class="btn btn-sm theme" asp-controller="Edit" asp-action="Index" asp-route-id=@Model.Id>編集</a>
+                        </div>
+                    </div>
+                    <div class="card-body theme_diary_content">
+                        @Model.Content
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <a id="back" class="btn btn-sm theme_cancel" asp-controller="Menu" asp-action="Index">戻る</a>
+            </div>
+            <div class="col-11">
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</form>
+
+

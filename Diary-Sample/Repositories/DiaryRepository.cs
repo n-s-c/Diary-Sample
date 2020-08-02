@@ -3,6 +3,7 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Diary_Sample.Entities;
@@ -78,6 +79,74 @@ namespace Diary_Sample.Repositories
         {
             // DBから取得した内容をログに出力
             _logger.LogInformation($"{x.id} {x.title} {x.content} {x.post_date} {x.update_date}");
+        }
+
+        public List<Diary> Read(int id)
+        {
+            var result = new List<Diary>();
+            try
+            {
+                result = _context.diary.Where(x => x.id == id).ToList();
+            }
+            catch (MySqlException e)
+            {
+                _logger.LogError(e.Message);
+                _logger.LogError(e.StackTrace);
+                throw;
+            }
+
+            return result;
+        }
+
+        public bool Update(Diary diary)
+        {
+            try
+            {
+                var record = _context.diary.Single(x => x.id == diary.id);
+                record.title = diary.title;
+                record.content = diary.content;
+                record.update_date = diary.update_date;
+                _context.SaveChanges();
+
+            }
+            catch (InvalidOperationException ie)
+            {
+                _logger.LogError(ie.Message);
+                _logger.LogError(ie.StackTrace);
+                return false;
+            }
+            catch (MySqlException me)
+            {
+                _logger.LogError(me.Message);
+                _logger.LogError(me.StackTrace);
+                throw;
+            }
+            return true;
+
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var record = _context.diary.Single(x => x.id == id);
+                _context.diary.Remove(record);
+                _context.SaveChanges();
+
+            }
+            catch (InvalidOperationException ie)
+            {
+                _logger.LogError(ie.Message);
+                _logger.LogError(ie.StackTrace);
+                return false;
+            }
+            catch (MySqlException me)
+            {
+                _logger.LogError(me.Message);
+                _logger.LogError(me.StackTrace);
+                throw;
+            }
+            return true;
         }
     }
 }

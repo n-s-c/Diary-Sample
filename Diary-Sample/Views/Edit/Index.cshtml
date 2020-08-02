@@ -1,0 +1,61 @@
+
+@model Diary_Sample.Models.EditViewModel
+
+@{
+    ViewData["Title"] = "編集";
+}
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="タイトルを入力してください" value="@Model.Title">
+                <span asp-validation-for="Title" class="text-danger"></span>
+                <br />
+                <textarea class="form-control" id="content" name="content" rows="15" placeholder="本文を入力してください">@Model.Content</textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+        <br />
+        <div class="modal fade" id="updModal" tabindex="-1" role="dialog" aria-labelledby="updModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header theme_positive">
+                        <h5 class="modal-title" id="updModalLabel">更新します。よろしいですか？</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn theme_positive" asp-controller="Edit" asp-action="Edit" asp-route-id=@Model.Id>はい</button>
+                        <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header theme_warning">
+                        <h5 class="modal-title" id="delModalLabel">削除します。よろしいですか？</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn theme_warning" asp-controller="Edit" asp-action="Delete" asp-route-id=@Model.Id>はい</button>
+                        <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <button type="button" id="update" class="btn btn-sm theme" data-toggle="modal" data-target="#updModal">更新</button>
+                <button type="button" id="delete" class="btn btn-sm theme_warning" data-toggle="modal" data-target="#delModal">削除</button>
+                <a id="back" class="btn btn-sm theme_cancel" asp-controller="Refer" asp-action="Index" asp-route-id=@Model.Id>戻る</a>
+            </div>
+            <div class="col-9">
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</form>
+
