@@ -22,7 +22,7 @@ namespace Diary_Sample.Common
             {
                 return -1;
             }
-            if ((num <= MinIdValue) && (num >= MaxIdValue))
+            if ((num < MinIdValue) || (num > MaxIdValue))
             {
                 return -1;
             }
