@@ -240,10 +240,7 @@ namespace Diary_Sample_Test.Repositories
                 new Diary("EEE", "テスト"),
                 new Diary("FFF", "テスト"),
             }.AsQueryable();
-            mockSet.As<IQueryable<Diary>>().Setup(x => x.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Diary>>().Setup(x => x.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Diary>>().Setup(x => x.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Diary>>().Setup(x => x.GetEnumerator()).Returns(data.GetEnumerator());
+            SetIQueryable(data);
 
             mockContext.Setup(x => x.diary).Throws(mockException);
 
