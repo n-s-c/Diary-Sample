@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ログイン</title>
+        <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/style.css" />
+        <script src="./lib/jquery/dist/jquery.min.js"></script>
+        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./lib/js.cookie.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
+                <div class="container">
+                    <a class="navbar-brand text-light">日記</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="register.html">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="login.html">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                <h1>Log in</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <section>
+                            <form id="account" method="post" action="menu.html">
+                                <h4>Use a local account to log in.</h4>
+                                <hr />
+                                <div class="text-danger"></div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <input type="checkbox" />
+                                        <label>Remember Me?<label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Log in</button>
+                                </div>
+                                <div class="form-group">
+                                    <p>
+                                        <a id="forgot-password" href="./ForgotPassword">Forgot your password?</a>
+                                    </p>
+                                    <p>
+                                        <a href="./Register">Register as a new user</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2">
+                        <section>
+                            <h4>Use another service to log in.</h4>
+                            <hr />
+                                <div>
+                                    <p>
+                                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                        for details on setting up this ASP.NET application to support logging in via external services.
+                                    </p>
+                                </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer class="border-top footer theme">
+            <div class="container" align="center">
+                &copy; 2020 - Diary_Sample - Privacy
+            </div>
+        </footer>
+    </body>
+</html>
