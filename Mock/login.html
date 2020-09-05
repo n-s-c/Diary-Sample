@@ -12,7 +12,7 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 certification_theme">
                 <div class="container">
                     <a class="navbar-brand text-light">日記</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,12 +21,12 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-3">
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="./register.html">Register</a>
+                                <a class="nav-link text-light" href="./register.html">アカウント登録</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="./login.html">Login</a>
+                                <a class="nav-link text-light" href="./login.html">ログイン</a>
                             </li>
                         </ul>
                     </div>
@@ -34,59 +34,44 @@
             </nav>
         </header>
         <div class="container">
-            <main role="main" class="pb-3">
-                <h1>Log in</h1>
+            <main class="pb-3">
+                <h3><img src="lib/bootstrap-icons/person-check-fill.svg" alt="" width="32" height="32" title="LOGIN"> LOGIN</h3>
+                <br>
                 <div class="row">
                     <div class="col-md-4">
                         <section>
                             <form id="account" method="post" action="./menu.html">
-                                <h4>Use a local account to log in.</h4>
+                                <h6>アカウント情報を入力してください</h6>
                                 <hr />
                                 <div class="text-danger"></div>
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label>Eメール</label>
                                     <input type="email" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>パスワード</label>
                                     <input type="password" class="form-control" />
                                 </div>
-                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <input type="checkbox" />
-                                        <label>Remember Me?<label>
-                                    </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheckBox1">
+                                    <label class="custom-control-label" for="customCheckBox1">次回から自動ログインする</label>
                                 </div>
+                                <br>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Log in</button>
+                                    <button type="submit" class="btn certification_theme">ログイン</button>
                                 </div>
                                 <div class="form-group">
                                     <p>
-                                        <a id="forgot-password" href="forgot_password.html">Forgot your password?</a>
-                                    </p>
-                                    <p>
-                                        <a href="./Register">Register as a new user</a>
+                                        <a href="forgot_password.html" class="certificate_link">パスワードをお忘れですか？</a>
                                     </p>
                                 </div>
                             </form>
                         </section>
                     </div>
-                    <div class="col-md-6 col-md-offset-2">
-                        <section>
-                            <h4>Use another service to log in.</h4>
-                            <hr />
-                                <div>
-                                    <p>
-                                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                        for details on setting up this ASP.NET application to support logging in via external services.
-                                    </p>
-                                </div>
-                        </section>
-                    </div>
                 </div>
             </main>
         </div>
-        <footer class="border-top footer theme">
+        <footer class="border-top footer certification_theme">
             <div class="container" align="center">
                 &copy; 2020 - Diary_Sample - Privacy
             </div>
