@@ -4,13 +4,21 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Entities
 {
     public partial class DiarySampleContext : DbContext
     {
-        public virtual DbSet<Diary>? diary { get; set; }
+        public DbSet<Diary>? diary { get; set; }
+        private readonly IConfiguration _config;
+
+        public DiarySampleContext(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public static readonly ILoggerFactory MySQLLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,10 +28,9 @@ namespace Diary_Sample.Entities
             }
             if (!optionsBuilder.IsConfigured)
             {
-                // TODO DB設定は後で設定ファイルに持つようにする・環境ごとに設定を変更できるようにする
                 optionsBuilder
                 .UseLoggerFactory(MySQLLoggerFactory)
-                .UseMySQL(@"server=db;port=3306;database=DiarySample;userid=user;pwd=password;sslmode=Required;");
+                .UseMySQL(_config.GetConnectionString("DbConnectionString"));
             }
         }
     }
