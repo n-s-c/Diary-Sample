@@ -2,19 +2,19 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>新規登録</title>
+        <title>アカウント設定</title>
         <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="./css/style.css" />
         <script src="./lib/jquery/dist/jquery.min.js"></script>
         <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./lib/js.cookie.min.js"></script>
     </head>
-    <body class="theme_background">
+    <body>
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
                 <div class="container">
                     <a class="navbar-brand text-light">日記</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -46,24 +46,39 @@
             </nav>
         </header>
         <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <form>
-                        <input class="form-control form-control-lg" type="text" placeholder="タイトルを入力してください">
-                        <br/>
-                        <textarea class="form-control" id="updFormControlTextarea1" rows="15" placeholder="本文を入力してください"></textarea>
-                    </form>
-                </div>
-                <div class="col-4">
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-2">
-                    <input type="button" id="update" class="btn btn-sm theme" value="登録" data-toggle="modal" data-target="#updModal" />
-                    <input type="button" id="back" class="btn btn-sm theme_cancel" value="戻る"onclick="window.location.href = './menu.html';" />
-                </div>
-                <div class="col-9">
+            <h2>Manage your account</h2>
+
+            <div>
+                <h4>Change your account settings</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item"><a class="nav-link" id="profile" href="./settings_profile.html">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" id="email" href="./settings_email.html">Email</a></li>
+                            <li class="nav-item"><a class="nav-link" id="change-password" href="./settings_password.html">Password</a></li>
+                            <li class="nav-item"><a class="nav-link active" id="personal-data" href="./settings_personal_data.html">Personal data</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <h4>Personal Data</h4>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+                                    <p>
+                                        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+                                    </p>
+                                    <form id="download-data" method="post" class="form-group" action="download_personal_data.html">
+                                        <button class="btn btn-primary" type="submit">Download</button>
+                                    </form>
+                                    <p>
+                                        <a id="delete" href="./delete_personal_data.html" class="btn btn-primary">Delete</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,18 +90,4 @@
             </div>
         </footer>
     </body>
-<!-- Modal -->
-  <div class="modal fade" id="updModal" tabindex="-1" role="dialog" aria-labelledby="updModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header theme_positive">
-          <h5 class="modal-title" id="updModalLabel">登録します。よろしいですか？</h5>
-        </div>
-        <div class="modal-footer">
-            <button class="btn theme_positive" onclick="Cookies.set('msg', '登録が完了しました。');window.location.href = './menu.html';">はい</button>
-            <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </html>
