@@ -5,7 +5,7 @@ on:
     branches: [ master, feature/** ]
 
 jobs:
-  build:
+  format-check_build_unit-test:
 
     runs-on: ubuntu-latest
 
