@@ -11,7 +11,7 @@ namespace Diary_Sample.Entities
 {
     public partial class DiarySampleContext : DbContext
     {
-        public DbSet<Diary>? diary { get; set; }
+        public virtual DbSet<Diary>? diary { get; set; }
         private readonly IConfiguration _config;
 
         public DiarySampleContext(IConfiguration config)

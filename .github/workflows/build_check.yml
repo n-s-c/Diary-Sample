@@ -1,11 +1,11 @@
-name: .NET Core
+name: FormatCheck & Build & UnitTest
 
 on:
   push:
     branches: [ master, feature/** ]
 
 jobs:
-  build:
+  format-check_build_unit-test:
 
     runs-on: ubuntu-latest
 
@@ -18,10 +18,10 @@ jobs:
     - name: Install dotnet format
       run: dotnet tool install -g dotnet-format
     - name: format-check
-      run: cd ./Diary-Sample && dotnet format --check --verbosity q --dry-run
+      run: dotnet format --check --verbosity q --dry-run
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: cd ./Diary-Sample && dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: cd ./Diary-Sample && dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal

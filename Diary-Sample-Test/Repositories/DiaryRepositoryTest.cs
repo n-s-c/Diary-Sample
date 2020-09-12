@@ -10,6 +10,7 @@ using System.Reflection;
 using Diary_Sample.Entities;
 using Diary_Sample.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using MySql.Data.MySqlClient;
@@ -20,6 +21,7 @@ namespace Diary_Sample_Test.Repositories
     public class DiaryRepositoryTest
     {
         private readonly Mock<ILogger<DiaryRepository>> mockLogger;
+        private readonly Mock<IConfiguration> mockConfiguration;
         private readonly Mock<DiarySampleContext> mockContext;
         private readonly Mock<DbSet<Diary>> mockSet;
         private readonly Exception mockException;
@@ -27,7 +29,8 @@ namespace Diary_Sample_Test.Repositories
         public DiaryRepositoryTest()
         {
             mockLogger = new Mock<ILogger<DiaryRepository>>() { CallBase = true };
-            mockContext = new Mock<DiarySampleContext>();
+            mockConfiguration = new Mock<IConfiguration>();
+            mockContext = new Mock<DiarySampleContext>(mockConfiguration.Object);
             mockSet = new Mock<DbSet<Diary>>();
             // MySqlExceptionは直接moqで作れないのでリフレクションで作る
             TypeInfo mySqlExceptionType = typeof(MySql.Data.MySqlClient.MySqlException).GetTypeInfo();
@@ -36,7 +39,6 @@ namespace Diary_Sample_Test.Repositories
                                                    where paramInfos.Length == 1 && paramInfos[0].ParameterType == typeof(string)
                                                    select consInfo).Single();
             mockException = internalConstructor.Invoke(new[] { "DBエラー" }) as Exception;
-
             repository = new DiaryRepository(mockLogger.Object, mockContext.Object);
         }
 
