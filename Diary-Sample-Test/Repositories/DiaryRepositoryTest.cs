@@ -268,6 +268,268 @@ namespace Diary_Sample_Test.Repositories
                 Assert.Equal("DBエラー", e.Message);
             }
         }
+
+        // 正常系：データありのキー値を指定
+        [Fact]
+        public void ReadTest001()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+
+            var resultList = repository.Read(3);
+
+            Assert.Single(resultList);
+            var result = resultList[0];
+            Assert.Equal(3, result.id);
+            Assert.Equal("たいとる３（てすと）", result.title);
+            Assert.Equal("ほんぶん３（てすと）", result.content);
+        }
+
+        // 正常系：データなしのキー値を指定
+        [Fact]
+        public void ReadTest002()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+
+            var resultList = repository.Read(8);
+
+            Assert.Empty(resultList);
+        }
+
+        // 異常系：MySqlException
+        [Fact]
+        public void ReadTest003()
+        {
+            Diary diary = new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
+
+            var exception = Assert.Throws<MySqlException>(() =>
+            {
+                bool result = repository.create(diary);
+            });
+            Assert.Equal("DBエラー", exception.Message);
+            mockLogger.Verify(
+                x => x.Log(
+                        LogLevel.Error,
+                        It.IsAny<EventId>(),
+                        It.IsAny<It.IsAnyType>(),
+                        It.IsAny<Exception>(),
+                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
+        }
+
+        // 正常系：レコード更新
+        [Fact]
+        public void UpdateTest001()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(2, "タイトル２（てすと）を更新", "ほんぶん２（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+
+            bool result = repository.Update(diary);
+
+            Assert.True(result);
+        }
+
+        // 準正常系：存在しないレコードを更新
+        [Fact]
+        public void UpdateTest002()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(8, "タイトル８（てすと）を更新", "ほんぶん８（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+
+            bool result = repository.Update(diary);
+
+            Assert.False(result);
+            mockLogger.Verify(
+                        x => x.Log(
+                  LogLevel.Error,
+                  It.IsAny<EventId>(),
+                  It.IsAny<It.IsAnyType>(),
+                  It.IsAny<Exception>(),
+                  (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                        Times.Exactly(2));
+        }
+
+        // 異常系：MySqlException
+        [Fact]
+        public void UpdateTest003()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(1, "タイトル１（てすと）を更新", "ほんぶん１（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+            mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
+
+            var exception = Assert.Throws<MySqlException>(() =>
+            {
+                bool result = repository.Update(diary);
+            });
+            Assert.Equal("DBエラー", exception.Message);
+
+            mockLogger.Verify(
+                x => x.Log(
+                        LogLevel.Error,
+                        It.IsAny<EventId>(),
+                        It.IsAny<It.IsAnyType>(),
+                        It.IsAny<Exception>(),
+                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
+        }
+
+        // 正常系：レコード削除
+        [Fact]
+        public void DeleteTest001()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(2, "タイトル２（てすと）を更新", "ほんぶん２（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+
+            bool result = repository.Delete(2);
+
+            Assert.True(result);
+        }
+
+        // 準正常系：存在しないレコードを削除
+        [Fact]
+        public void DeleteTest002()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(8, "タイトル８（てすと）を更新", "ほんぶん８（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+
+            bool result = repository.Delete(8);
+
+            Assert.False(result);
+            mockLogger.Verify(
+                        x => x.Log(
+                  LogLevel.Error,
+                  It.IsAny<EventId>(),
+                  It.IsAny<It.IsAnyType>(),
+                  It.IsAny<Exception>(),
+                  (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                        Times.Exactly(2));
+        }
+
+        // 異常系：MySqlException
+        [Fact]
+        public void DeleteTest003()
+        {
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Returns(mockSet.Object);
+            Diary diary = new Diary(1, "タイトル１（てすと）を更新", "ほんぶん１（てすと）を更新");
+            mockContext.Setup(x => x.Add(diary));
+            mockContext.Setup(x => x.SaveChanges()).Returns(1);
+            mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
+
+            var exception = Assert.Throws<MySqlException>(() =>
+            {
+                bool result = repository.Delete(1);
+            });
+            Assert.Equal("DBエラー", exception.Message);
+
+            mockLogger.Verify(
+                x => x.Log(
+                        LogLevel.Error,
+                        It.IsAny<EventId>(),
+                        It.IsAny<It.IsAnyType>(),
+                        It.IsAny<Exception>(),
+                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
+        }
+
         private void SetIQueryable(IQueryable<Diary> data)
         {
             mockSet.As<IQueryable<Diary>>().Setup(x => x.Provider).Returns(data.Provider);
