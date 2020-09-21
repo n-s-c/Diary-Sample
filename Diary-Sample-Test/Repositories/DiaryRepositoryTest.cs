@@ -321,13 +321,22 @@ namespace Diary_Sample_Test.Repositories
         [Fact]
         public void ReadTest003()
         {
-            Diary diary = new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）");
-            mockContext.Setup(x => x.Add(diary));
-            mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
+            IQueryable<Diary> data = new List<Diary>
+            {
+                new Diary(1, "たいとる１（てすと）", "ほんぶん１（てすと）"),
+                new Diary(2, "たいとる２（てすと）", "ほんぶん２（てすと）"),
+                new Diary(3, "たいとる３（てすと）", "ほんぶん３（てすと）"),
+                new Diary(4, "たいとる４（てすと）", "ほんぶん４（てすと）"),
+                new Diary(5, "たいとる５（てすと）", "ほんぶん５（てすと）"),
+                new Diary(6, "たいとる６（てすと）", "ほんぶん６（てすと）"),
+                new Diary(7, "たいとる７（てすと）", "ほんぶん７（てすと）"),
+            }.AsQueryable();
+            SetIQueryable(data);
+            mockContext.Setup(x => x.diary).Throws(mockException);
 
             var exception = Assert.Throws<MySqlException>(() =>
             {
-                bool result = repository.create(diary);
+                var resultList = repository.Read(1);
             });
             Assert.Equal("DBエラー", exception.Message);
             mockLogger.Verify(
@@ -357,7 +366,6 @@ namespace Diary_Sample_Test.Repositories
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
             Diary diary = new Diary(2, "タイトル２（てすと）を更新", "ほんぶん２（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
             mockContext.Setup(x => x.SaveChanges()).Returns(1);
 
             bool result = repository.Update(diary);
@@ -382,7 +390,6 @@ namespace Diary_Sample_Test.Repositories
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
             Diary diary = new Diary(8, "タイトル８（てすと）を更新", "ほんぶん８（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
             mockContext.Setup(x => x.SaveChanges()).Returns(1);
 
             bool result = repository.Update(diary);
@@ -415,8 +422,6 @@ namespace Diary_Sample_Test.Repositories
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
             Diary diary = new Diary(1, "タイトル１（てすと）を更新", "ほんぶん１（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
-            mockContext.Setup(x => x.SaveChanges()).Returns(1);
             mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
 
             var exception = Assert.Throws<MySqlException>(() =>
@@ -451,8 +456,6 @@ namespace Diary_Sample_Test.Repositories
             }.AsQueryable();
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
-            Diary diary = new Diary(2, "タイトル２（てすと）を更新", "ほんぶん２（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
             mockContext.Setup(x => x.SaveChanges()).Returns(1);
 
             bool result = repository.Delete(2);
@@ -476,8 +479,6 @@ namespace Diary_Sample_Test.Repositories
             }.AsQueryable();
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
-            Diary diary = new Diary(8, "タイトル８（てすと）を更新", "ほんぶん８（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
             mockContext.Setup(x => x.SaveChanges()).Returns(1);
 
             bool result = repository.Delete(8);
@@ -509,9 +510,6 @@ namespace Diary_Sample_Test.Repositories
             }.AsQueryable();
             SetIQueryable(data);
             mockContext.Setup(x => x.diary).Returns(mockSet.Object);
-            Diary diary = new Diary(1, "タイトル１（てすと）を更新", "ほんぶん１（てすと）を更新");
-            mockContext.Setup(x => x.Add(diary));
-            mockContext.Setup(x => x.SaveChanges()).Returns(1);
             mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
 
             var exception = Assert.Throws<MySqlException>(() =>
