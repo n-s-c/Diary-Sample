@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>管理</title>
-        <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="./css/style.css" />
-        <script src="./lib/jquery/dist/jquery.min.js"></script>
-        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./lib/js.cookie.min.js"></script>
+        <link rel="stylesheet" href="./../lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./../css/manage.css" />
+        <script src="./../lib/jquery/dist/jquery.min.js"></script>
+        <script src="./../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./../lib/js.cookie.min.js"></script>
     </head>
     <body>
         <header>
@@ -21,7 +21,7 @@
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a href="./menu.html" class="nav-link text-light">Home</a>
+                                <a href="./../menu.html" class="nav-link text-light">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link text-light">プロフィール</a>
@@ -35,10 +35,10 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="./settings_profile.html" class="nav-link user_email">test@example.jp</a>
+                                <a href="./../account_settings/settings_profile.html" class="nav-link user_email">test@example.jp</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="./login.html">ログアウト</a>
+                                <a class="nav-link text-light" href="./../certificate/login.html">ログアウト</a>
                             </li>
                         </ul>
                     </div>
@@ -46,15 +46,14 @@
             </nav>
         </header>
         <div class="container">
-            <h2>ACCOUNTS</h2>
-
+            <h3><img src="./../lib/bootstrap-icons/gear.svg" alt="" width="32" height="32" title="management"> 管理</h3>
             <div>
                 <h4></h4>
                 <hr />
                 <div class="row">
                     <div class="col-md-3">
                         <ul class="nav nav-pills flex-column">
-                            <li class="nav-item"><a class="nav-link active" id="profile" href="./manage_account.html">アカウント管理</a></li>
+                            <li class="nav-item"><a class="nav-link manage_theme" id="profile" href="./manage_account.html">アカウント管理</a></li>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -63,19 +62,38 @@
                                 <table class="table table-bordered table-hover account_list">
                                     <tr class="theme_account_title">
                                         <th class="no">No</th>
-                                        <th class="title">ユーザ名</th>
-                                        <th class="post_date">登録状態</th>
-                                        <th class="post_date">ロック状態</th>
-                                        <th class="post_date">ログイン失敗回数</th>
-                                        <th></th>
+                                        <th class="user_id">ユーザID</th>
+                                        <th class="user_name">ユーザ名</th>
+                                        <th class="email">Eメール</th>
+                                        <th class="reg_status">メール確認済</th>
+                                        <th class="tel_no">電話番号</th>
+                                        <th class="lock_status">ロック</th>
+                                        <th class="fail_count">ログイン失敗回数</th>
                                     </tr>
                                     <tr class="theme_account_content">
                                         <td>1</td>
+                                        <td>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</td>
+                                        <td>システム太郎</td>
                                         <td>test@example.jp</td>
+                                        <td>済</td>
+                                        <td>03-1234-5678</td>
+                                        <td>
+                                            yyyy/MM/dd XX:XX まで
+                                            <button id="release_lock" class="btn btn-sm manage_theme"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-unlock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                            <path fill-rule="evenodd" d="M8.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                          </svg> 解除</button></td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr class="theme_account_content">
+                                        <td>2</td>
+                                        <td>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</td>
+                                        <td>システム次郎</td>
+                                        <td>test2@example.jp</td>
+                                        <td>未</td>
+                                        <td>03-1234-5678</td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><input type="button" id="create" class="btn btn-sm theme" value="ロック解除" onclick="window.location.href = './create.html';" /></td>
+                                        <td>3</td>
                                     </tr>
                                 </table>
                             </div>
@@ -85,7 +103,7 @@
                             </div>
                             <div class="col-11">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item"><a class="page-link theme" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link manage_theme" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
                                     <li class="page-item">

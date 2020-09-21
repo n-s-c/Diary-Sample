@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>アカウント登録</title>
-        <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="./css/style.css" />
-        <script src="./lib/jquery/dist/jquery.min.js"></script>
-        <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./lib/js.cookie.min.js"></script>
+        <link rel="stylesheet" href="./../lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./../css/certificate.css" />
+        <script src="./../lib/jquery/dist/jquery.min.js"></script>
+        <script src="./../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./../lib/js.cookie.min.js"></script>
     </head>
     <body>
         <header>
@@ -21,7 +21,7 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-3">
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="./register.html">アカウント登録</a>
                             </li>
@@ -35,11 +35,10 @@
         </header>
         <div class="container">
             <main class="pb-3">
-                <h3><img src="lib/bootstrap-icons/key-fill.svg" alt="" width="32" height="32" title="PASSWORD"> PLEASE CHECK YOUR EMAIL TO RESET YOUR PASSWORD</h3>
+                <h3><img src="./../lib/bootstrap-icons/person-plus-fill.svg" alt="" width="32" height="32" title="ACCOUNT"> REGISTER ACCOUNT COMPLETED!</h3>
                 <br>
                 <h6>
-                    パスワードリセット用のメールを送信しました。<br>ご確認ください。<br><br>
-                    ※これはモックなのでメールは送信しません。代わりにこちらの<a href="./reset_password.html" class="certification_link">リンク</a>をクリックしてください。
+                    アカウントの登録が完了しました。ログインは<a href="./login.html" class="certification_link">こちら</a>をクリックしてください。
                 </h6>
             </main>
         </div>
