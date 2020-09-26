@@ -39,6 +39,7 @@ namespace Diary_Sample_Test.Repositories
                                                    where paramInfos.Length == 1 && paramInfos[0].ParameterType == typeof(string)
                                                    select consInfo).Single();
             mockException = internalConstructor.Invoke(new[] { "DBエラー" }) as Exception;
+
             repository = new DiaryRepository(mockLogger.Object, mockContext.Object);
         }
 
