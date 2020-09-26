@@ -80,26 +80,25 @@ namespace Diary_Sample_Test.Repositories
             mockContext.Setup(x => x.SaveChanges()).Throws(mockException);
 
             // Createメソッドのテスト
-            try
+            var exception = Assert.Throws<MySqlException>(() =>
             {
-                bool result = repository.create(diary);
-            }
-            catch (MySqlException e)
-            {
-                // ログが2回出力されていること
-                mockLogger.Verify(
-                    x =>
-                    x.Log(
-                        LogLevel.Error,
-                        It.IsAny<EventId>(),
-                        It.IsAny<It.IsAnyType>(),
-                        It.IsAny<Exception>(),
-                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
-                    Times.Exactly(2));
+                repository.create(diary);
+            });
 
-                // 例外メッセージの確認
-                Assert.Equal("DBエラー", e.Message);
-            }
+            // ログが2回出力されていること
+            mockLogger.Verify(
+                x =>
+                x.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
+
+            // 例外メッセージの確認
+            Assert.Equal("DBエラー", exception.Message);
+
         }
         [Fact]
         public void ReadTest1()
@@ -172,26 +171,24 @@ namespace Diary_Sample_Test.Repositories
             mockContext.Setup(x => x.diary).Throws(mockException);
 
             // readメソッドのテスト
-            try
+            var exception = Assert.Throws<MySqlException>(() =>
             {
-                List<Diary> result = repository.read(1, 5);
-            }
-            catch (MySqlException e)
-            {
-                // ログが2回出力されていること
-                mockLogger.Verify(
-                    x =>
-                    x.Log(
-                        LogLevel.Error,
-                        It.IsAny<EventId>(),
-                        It.IsAny<It.IsAnyType>(),
-                        It.IsAny<Exception>(),
-                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
-                    Times.Exactly(2));
+                repository.read(1, 5);
+            });
+            // ログが2回出力されていること
+            mockLogger.Verify(
+                x =>
+                x.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
 
-                // 例外メッセージの確認
-                Assert.Equal("DBエラー", e.Message);
-            }
+            // 例外メッセージの確認
+            Assert.Equal("DBエラー", exception.Message);
+
         }
         [Fact]
         public void ReadCountTest1()
@@ -248,26 +245,24 @@ namespace Diary_Sample_Test.Repositories
             mockContext.Setup(x => x.diary).Throws(mockException);
 
             // readCountメソッドのテスト
-            try
+            var exception = Assert.Throws<MySqlException>(() =>
             {
-                int result = repository.readCount();
-            }
-            catch (MySqlException e)
-            {
-                // ログが2回出力されていること
-                mockLogger.Verify(
-                    x =>
-                    x.Log(
-                        LogLevel.Error,
-                        It.IsAny<EventId>(),
-                        It.IsAny<It.IsAnyType>(),
-                        It.IsAny<Exception>(),
-                        (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
-                    Times.Exactly(2));
+                repository.readCount();
+            });
 
-                // 例外メッセージの確認
-                Assert.Equal("DBエラー", e.Message);
-            }
+            // ログが2回出力されていること
+            mockLogger.Verify(
+                x =>
+                x.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Exactly(2));
+
+            // 例外メッセージの確認
+            Assert.Equal("DBエラー", exception.Message);
         }
 
         // 正常系：データありのキー値を指定
