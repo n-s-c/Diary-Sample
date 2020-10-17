@@ -2,6 +2,9 @@ body {
     font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
     font-weight: bold;
   }
+::selection {
+    background: rgba(19, 94, 255, 0.411);
+}
 /**
 * テーマカラー
 * DBで管理できると良いね。
@@ -93,4 +96,8 @@ table.diary_list th {
 table.diary_list td {
     font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
     font-weight: bold;
+}
+
+.user_email {
+    color: rgb(8, 209, 75) !important;
 }

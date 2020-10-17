@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>アカウント設定</title>
+        <link rel="stylesheet" href="./../lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./../css/account_setttings.css" />
+        <script src="./../lib/jquery/dist/jquery.min.js"></script>
+        <script src="./../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./../lib/js.cookie.min.js"></script>
+        <script>
+            function download() {
+                var content = '{"Id":"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","UserName":"システム太郎","Email":"test@example.jp","EmailConfirmed":"True","PhoneNumber":"03-1234-5678","PhoneNumberConfirmed":"False"}';
+	            var link = document.createElement( 'a' );
+	            link.href = window.URL.createObjectURL( new Blob( [content] ) );
+                link.download = "PersonalData.json";
+                link.click();
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 theme">
+                <div class="container">
+                    <a class="navbar-brand text-light">日記</a>
+                    <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a href="./../menu.html" class="nav-link text-light">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">プロフィール</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light">設定</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./../manage/manage_account.html" class="nav-link text-light">管理</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="./settings_profile.html" class="nav-link user_email">test@example.jp</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="./../certificate/login.html">ログアウト</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <h3><img src="./../lib/bootstrap-icons/person-circle.svg" alt="" width="32" height="32" title="account"> アカウント設定</h3>
+            <div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item"><a class="nav-link" id="profile" href="./settings_profile.html">プロフィール</a></li>
+                            <li class="nav-item"><a class="nav-link" id="email" href="./settings_email.html">Eメール</a></li>
+                            <li class="nav-item"><a class="nav-link" id="change-password" href="./settings_password.html">パスワード</a></li>
+                            <li class="nav-item"><a class="nav-link theme" id="personal-data" href="./settings_personal_data.html">アカウントデータ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <p>あなたのアカウントには個人データが含まれています。<br>
+                            このページでは、そのデータをダウンロードまたは削除できます。
+                        </p>
+                        <p>
+                            <strong>データを削除するとアカウントは完全に削除され、復元することはできません。</strong>
+                        </p>
+                        <form id="download-data" method="post" class="form-group">
+                            <button class="btn btn-sm theme" type="file" onclick="download();">ダウンロード</button>
+                        </form>
+                        <p>
+                            <a id="delete" href="./confirm_deleting_personal_data.html" class="btn btn-sm theme_warning">削除</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <footer class="border-top footer theme">
+            <div class="container" align="center">
+                &copy; 2020 - Diary_Sample - Privacy
+            </div>
+        </footer>
+    </body>
+</html>

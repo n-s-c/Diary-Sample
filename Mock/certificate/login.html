@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ログイン</title>
+        <link rel="stylesheet" href="./../lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./../css/certificate.css" />
+        <script src="./../lib/jquery/dist/jquery.min.js"></script>
+        <script src="./../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./../lib/js.cookie.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom mb-3 p-0 certification_theme">
+                <div class="container">
+                    <a class="navbar-brand text-light">日記</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main class="pb-3">
+                <h3><img src="./../lib/bootstrap-icons/person-check-fill.svg" alt="" width="32" height="32" title="LOGIN"> LOGIN</h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <section>
+                            <form id="account" method="post" action="./../menu.html">
+                                <h6>アカウント情報を入力してください</h6>
+                                <hr />
+                                <div class="text-danger"></div>
+                                <div class="form-group">
+                                    <label>Eメール</label>
+                                    <input type="email" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>パスワード</label>
+                                    <input type="password" class="form-control" />
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheckBox1">
+                                    <label class="custom-control-label" for="customCheckBox1">次回から自動ログインする</label>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <button type="submit" class="btn certification_theme">ログイン</button>
+                                </div>
+                                <div class="form-group">
+                                    <p>
+                                        <a href="forgot_password.html" class="certification_link">パスワードをお忘れですか？</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer class="border-top footer certification_theme">
+            <div class="container" align="center">
+                &copy; 2020 - Diary_Sample - Privacy
+            </div>
+        </footer>
+    </body>
+</html>
