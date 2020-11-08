@@ -1,0 +1,46 @@
+body {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+  }
+::selection {
+    background: rgba(19, 94, 255, 0.411);
+}
+
+/**
+* 認証
+*/
+.certification_theme, .certification_theme:hover {
+    color: white;
+    background-color: rgb(57, 57, 68);
+    border-color: rgb(29, 29, 29);
+}
+.certification_theme:read-only, .certification_theme:focus {
+    background-color: rgb(57, 57, 68) !important;
+    color:white;
+    border-color: rgb(29, 29, 29);
+}
+.certification_theme::selection {
+    color:white;
+}
+
+.certification_link:link, .certification_link:hover, .certification_link:active, .certification_link:visited {
+    color: rgb(35, 65, 201);
+    outline-color: white;
+}
+
+.custom-control-label {
+    font: 1.0em normal;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color:rgb(57, 57, 68);
+    outline-color: white;
+}
+
+.theme_warning {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_warning:hover {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
