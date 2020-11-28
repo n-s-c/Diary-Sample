@@ -10,7 +10,7 @@ describe("新規登録", () => {
   });
 
   it("screenshot", () => {
-    cy.screenshot('02_create');
+    cy.screenshot("02_create");
   });
 
   context("画面項目", () => {

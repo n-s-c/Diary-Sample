@@ -7,8 +7,14 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      REG_SUIT_CLIENT_ID: ${{ secrets.REG_SUIT_CLIENT_ID }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: db startup
         run: docker-compose -f Diary-Sample/docker-compose.yml up -d
       - name: app build
@@ -24,3 +30,21 @@ jobs:
         with:
           name: videos
           path: e2e/cypress/videos
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: screenshots
+          path: e2e/cypress/screenshots
+
+      - name: Use Node.js v10
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - name: npm install
+        run: yarn install --pure-lockfile
+        working-directory: ./e2e
+        env:
+          CI: true
+      - name: run visual regression test
+        run: yarn run reg-suit
+        working-directory: ./e2e

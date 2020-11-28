@@ -9,7 +9,7 @@ describe("メニュー", () => {
   });
 
   it("screenshot", () => {
-    cy.screenshot('01_menu');
+    cy.screenshot("01_menu");
   });
 
   context("画面項目", () => {
