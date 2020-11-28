@@ -9,6 +9,10 @@ describe("新規登録", () => {
     cy.get("#create").click();
   });
 
+  it("screenshot", () => {
+    cy.screenshot('02_create');
+  });
+
   context("画面項目", () => {
     it("URL", () => {
       cy.url().should("eq", Cypress.config().baseUrl + "/Create");
