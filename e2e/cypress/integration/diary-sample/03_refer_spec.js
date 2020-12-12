@@ -5,7 +5,7 @@ import FooterTest from "./component/footer";
 
 describe("参照", () => {
 
-  const baseUrl = Cypress.config().baseUrl;
+  const baseUrl = Cypress.config().baseUrl + "/";
   const inputTitle = "テストタイトル";
   const inputText = "テスト本文";
   var patternNo = 0;
