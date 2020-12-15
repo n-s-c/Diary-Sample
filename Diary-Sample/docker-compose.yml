@@ -17,7 +17,12 @@ services:
     - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
     - 3306:3306
-
+  redis:
+      image: redis
+      ports:
+        - "6379:6379"
+      # volumes:
+      #   - "./docker/redis:/data"
   adminer:
     image: adminer
     restart: always

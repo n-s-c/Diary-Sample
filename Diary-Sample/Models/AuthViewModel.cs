@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
+// -----------------------------------------------------------------------
+// <copyright file="AuthViewModel.cs" company="1-system-group">
+// Copyright (c) 1-system-group. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Models
 {
@@ -19,12 +12,12 @@ namespace Diary_Sample.Models
         [Required(ErrorMessage = "Eメールは必須です。")]
         [EmailAddress]
         [Display(Name = "Eメール")]
-        public string Email { get; set; } = String.Empty;
+        public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "パスワードは必須です。")]
         [DataType(DataType.Password)]
         [Display(Name = "パスワード")]
-        public string Password { get; set; } = String.Empty;
+        public string Password { get; set; } = string.Empty;
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }

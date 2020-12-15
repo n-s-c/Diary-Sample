@@ -4,11 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Diary_Sample.Models;
-using Diary_Sample.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,13 +21,14 @@ namespace Diary_Sample.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AuthController> _logger;
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-        public AuthController(SignInManager<IdentityUser> signInManager,
+        public IList<AuthenticationScheme> ExternalLogins { get; set; } = new List<AuthenticationScheme>();
+        public AuthController(
+            SignInManager<IdentityUser> signInManager,
             ILogger<AuthController> logger,
             UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            _signInManager = signInManager ?? throw new System.ArgumentNullException(nameof(signInManager));
             _logger = logger;
         }
 
@@ -39,9 +38,9 @@ namespace Diary_Sample.Controllers
             AuthViewModel model = new AuthViewModel();
 
             // Clear the existing external cookie to ensure a clean Auth process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme).ConfigureAwait(false);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync().ConfigureAwait(false)).ToList();
 
             return View(model);
         }
@@ -49,11 +48,16 @@ namespace Diary_Sample.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(AuthViewModel model)
         {
+            if (model is null)
+            {
+                throw new System.ArgumentNullException(nameof(model));
+            }
+
             if (ModelState.IsValid)
             {
                 // This doesn't count Auth failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                Microsoft.AspNetCore.Identity.SignInResult? result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false).ConfigureAwait(false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -82,17 +86,17 @@ namespace Diary_Sample.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
             _logger.LogInformation("User logged out.");
             return RedirectToAction("Index", "Auth");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Unauthorized()
+        public async Task<IActionResult> NotAuthenticated()
         {
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
             _logger.LogInformation("User logged out.");
-            return View("Unauthorized");
+            return View("NotAuthenticated");
         }
     }
 }
