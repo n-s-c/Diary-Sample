@@ -2,9 +2,9 @@
 
 import HeaderTest from "./component/header";
 import FooterTest from "./component/footer";
+import AuthTest from "./component/auth";
 
 describe("参照", () => {
-
   const baseUrl = Cypress.config().baseUrl + "/";
   const inputTitle = "テストタイトル";
   const inputText = "テスト本文";
@@ -12,6 +12,7 @@ describe("参照", () => {
 
   beforeEach(() => {
     cy.visit(baseUrl);
+    AuthTest.login();
     cy.get("#create").click();
     cy.get("#Title").type(inputTitle);
     cy.get("#Content").type(inputText);
@@ -21,7 +22,6 @@ describe("参照", () => {
   });
 
   context("参照", () => {
-
     it("タイトル", () => {
       cy.title().should("eq", "参照");
       patternNo = 1;
@@ -38,7 +38,7 @@ describe("参照", () => {
       cy.get(".theme_diary_content").should("have.text", inputText);
       patternNo = 1;
     });
-    
+
     it("編集ボタン押下", () => {
       cy.get("#edit").click();
       cy.url().should("include", baseUrl + "Edit?id=");
@@ -47,7 +47,7 @@ describe("参照", () => {
 
     it("戻るボタン押下", () => {
       cy.get("#back").click();
-      cy.url().should("eq", baseUrl);
+      cy.url().should("eq", baseUrl + "Menu");
       patternNo = 3;
     });
 
@@ -68,5 +68,4 @@ describe("参照", () => {
     cy.get("#delete").click();
     cy.get('[class="btn theme_warning"]').click();
   });
-
 });
