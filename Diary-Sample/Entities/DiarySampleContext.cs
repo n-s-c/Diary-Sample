@@ -3,13 +3,14 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Entities
 {
-    public partial class DiarySampleContext : DbContext
+    public partial class DiarySampleContext : IdentityDbContext
     {
         public virtual DbSet<Diary>? diary { get; set; }
         private readonly IConfiguration _config;

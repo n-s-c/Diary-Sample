@@ -2,9 +2,9 @@
 
 import HeaderTest from "./component/header";
 import FooterTest from "./component/footer";
+import AuthTest from "./component/auth";
 
-describe("参照", () => {
-
+describe("編集", () => {
   const baseUrl = Cypress.config().baseUrl + "/";
   const inputTitle = "テストタイトル";
   const inputText = "テスト本文";
@@ -14,6 +14,7 @@ describe("参照", () => {
 
   beforeEach(() => {
     cy.visit(baseUrl);
+    AuthTest.login();
     cy.get("#create").click();
     cy.get("#Title").type(inputTitle);
     cy.get("#Content").type(inputText);
@@ -24,7 +25,6 @@ describe("参照", () => {
   });
 
   context("編集", () => {
-
     it("タイトル", () => {
       cy.title().should("eq", "編集");
       patternNo = 1;
@@ -41,13 +41,16 @@ describe("参照", () => {
       cy.get("#content").should("have.value", inputText);
       patternNo = 1;
     });
-    
+
     it("更新ボタン押下", () => {
       cy.get("#title").type(editTitle);
       cy.get("#content").type(edittText);
       cy.get("#update").click();
       cy.get('[class="btn theme_positive"]').click();
-      cy.get(".theme_diary_title h5 b").should("have.text", inputTitle + editTitle);
+      cy.get(".theme_diary_title h5 b").should(
+        "have.text",
+        inputTitle + editTitle
+      );
       cy.get(".theme_diary_content").should("have.text", inputText + edittText);
       cy.url().should("include", baseUrl + "Refer?id=");
       patternNo = 2;
@@ -58,11 +61,11 @@ describe("参照", () => {
       cy.url().should("include", baseUrl + "Refer?id=");
       patternNo = 2;
     });
-    
+
     it("削除ボタン押下", () => {
       cy.get("#delete").click();
       cy.get('[class="btn theme_warning"]').click();
-      cy.url().should("eq", baseUrl);
+      cy.url().should("eq", baseUrl + "Menu");
       patternNo = 3;
     });
 
@@ -73,15 +76,13 @@ describe("参照", () => {
   });
 
   afterEach(() => {
-  
     if (patternNo == 2) {
       cy.get("#edit").click();
     }
-    
-    if ((patternNo == 1) || (patternNo == 2)) {
+
+    if (patternNo == 1 || patternNo == 2) {
       cy.get("#delete").click();
       cy.get('[class="btn theme_warning"]').click();
     }
   });
-
 });
