@@ -9,7 +9,7 @@ export default class HeaderTest {
         .eq(0)
         .children()
         .should("have.text", "Home")
-        .should("have.attr", "href", "/Menu");
+        .should("have.attr", "href", "/");
 
       cy.wrap(item)
         .eq(1)
@@ -33,7 +33,7 @@ export default class HeaderTest {
     context("Home", () => {
       it("メニューに遷移する", () => {
         HeaderTest.click(0);
-        cy.url().should("eq", Cypress.config().baseUrl + "/Menu");
+        cy.url().should("eq", Cypress.config().baseUrl + "/");
       });
     });
   

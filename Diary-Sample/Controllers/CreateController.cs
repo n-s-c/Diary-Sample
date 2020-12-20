@@ -7,13 +7,11 @@ using System;
 using System.Diagnostics;
 using Diary_Sample.Models;
 using Diary_Sample.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Controllers
 {
-    [Authorize]
     public class CreateController : Controller
     {
         private readonly ILogger<CreateController> _logger;

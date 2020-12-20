@@ -1,12 +1,3 @@
 ﻿@{
-  var controller = this.ViewContext.RouteData.Values["controller"].ToString();
-
-  if (controller == "Auth")
-  {
-    Layout = "_AuthLayout";
-  }
-  else
-  {
     Layout = "_Layout";
-  }
 }
