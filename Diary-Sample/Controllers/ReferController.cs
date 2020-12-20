@@ -6,12 +6,10 @@
 
 using Diary_Sample.Common;
 using Diary_Sample.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diary_Sample.Controllers
 {
-    [Authorize]
     public class ReferController : Controller
     {
         private readonly IReferService _service;

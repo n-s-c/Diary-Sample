@@ -7,9 +7,3 @@ CREATE TABLE IF NOT EXISTS diary (
     post_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-CREATE TABLE __EFMigrationsHistory (
-    MigrationId nvarchar(150) NOT NULL,
-    ProductVersion nvarchar(32) NOT NULL,
-    PRIMARY KEY (MigrationId)
-);
