@@ -2,10 +2,12 @@
 
 import HeaderTest from "./component/header";
 import FooterTest from "./component/footer";
+import AuthTest from "./component/auth";
 
 describe("新規登録", () => {
   beforeEach(() => {
     cy.visit("/");
+    AuthTest.login();
     cy.get("#create").click();
   });
 
@@ -60,7 +62,7 @@ describe("新規登録", () => {
       cy.get("#create").click();
       cy.get("#yes").click();
 
-      cy.url().should("eq", Cypress.config().baseUrl + "/");
+      cy.url().should("eq", Cypress.config().baseUrl + "/Menu");
       const d = new Date();
       cy.get(".theme_diary_content td")
         .first()
@@ -99,7 +101,7 @@ describe("新規登録", () => {
   context("戻る", () => {
     it("メニューに戻る", () => {
       cy.get("#back").click();
-      cy.url().should("eq", Cypress.config().baseUrl + "/");
+      cy.url().should("eq", Cypress.config().baseUrl + "/Menu");
     });
   });
 

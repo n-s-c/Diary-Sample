@@ -2,15 +2,17 @@
 
 import HeaderTest from "./component/header";
 import FooterTest from "./component/footer";
+import AuthTest from "./component/auth";
 
 describe("メニュー", () => {
   beforeEach(() => {
     cy.visit("/");
+    AuthTest.login();
   });
 
   context("画面項目", () => {
     it("URL", () => {
-      cy.url().should("eq", Cypress.config().baseUrl + "/");
+      cy.url().should("eq", Cypress.config().baseUrl + "/Menu");
     });
 
     it("タイトル", () => {
@@ -40,5 +42,5 @@ describe("メニュー", () => {
     });
   });
 
-  HeaderTest.clickTest("/");
+  HeaderTest.clickTest("/Menu");
 });
