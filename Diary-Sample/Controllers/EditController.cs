@@ -8,10 +8,12 @@ using System.Diagnostics;
 using Diary_Sample.Common;
 using Diary_Sample.Models;
 using Diary_Sample.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diary_Sample.Controllers
 {
+    [Authorize]
     public class EditController : Controller
     {
         private readonly IEditService _service;
