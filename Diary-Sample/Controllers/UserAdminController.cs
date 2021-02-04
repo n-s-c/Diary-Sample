@@ -1,12 +1,11 @@
-using Diary_Sample.Services;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using Diary_Sample.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using System.Text;
-using System.IO;
 
 namespace Diary_Sample.Controllers
 {
@@ -272,7 +271,7 @@ namespace Diary_Sample.Controllers
                 Notification = EditOkMessage,
                 UpdateResult = true,
             };
-            
+
             return View("Index", outUserAdminViewModel);
         }
 
@@ -322,7 +321,7 @@ namespace Diary_Sample.Controllers
                 Notification = EditOkMessage,
                 UpdateResult = true,
             };
-            
+
             return View("Index", outUserAdminViewModel);
         }
 
@@ -337,7 +336,7 @@ namespace Diary_Sample.Controllers
             {
                 return UpadateError(userAdminViewModel, UserAdminAccountPart, DeleteNgMessage);
             }
-            
+
             if (userId == null)
             {
                 return UpadateError(userAdminViewModel, UserAdminAccountPart, DeleteNgMessage);
@@ -362,7 +361,7 @@ namespace Diary_Sample.Controllers
             }
 
             await _signInManager.SignOutAsync().ConfigureAwait(false);
-            
+
             return RedirectToAction("Index", "Auth");
         }
 
