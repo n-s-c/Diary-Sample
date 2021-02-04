@@ -379,11 +379,11 @@ namespace Diary_Sample.Controllers
             {
                 return UpadateError(userId, null, null, null, null, UserAdminAccountPart, DeleteNgMessage);
             }
-            var value = "{\"Id\":" + user.Id + 
-                        ",\"UserName\":" + user.UserName + 
-                        ",\"Email\":" + user.Email + 
-                        ",\"EmailConfirmed\":" + user.EmailConfirmed + 
-                        ",\"PhoneNumber\":" + user.PhoneNumber + 
+            var value = "{\"Id\":" + user.Id +
+                        ",\"UserName\":" + user.UserName +
+                        ",\"Email\":" + user.Email +
+                        ",\"EmailConfirmed\":" + user.EmailConfirmed +
+                        ",\"PhoneNumber\":" + user.PhoneNumber +
                         ",\"PhoneNumberConfirmed\":" + user.PhoneNumberConfirmed + "}";
             var filename = "PersonalData.json";
 

@@ -29,7 +29,7 @@ namespace Diary_Sample.Models
         [Required(ErrorMessage = "変更後Eメールは必須です。")]
         [EmailAddress]
         [Display(Name = "変更後Eメール")]
-        public string NewEmail {get; set; } = string.Empty;
+        public string NewEmail { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "現在のパスワードは必須です。")]
         [DataType(DataType.Password)]
@@ -58,7 +58,7 @@ namespace Diary_Sample.Models
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string NewEmail {get; set; } = string.Empty;
+        public string NewEmail { get; set; } = string.Empty;
         public string OldPassword { get; set; } = string.Empty;
         public string NewPassword1 { get; set; } = string.Empty;
         public string NewPassword2 { get; set; } = string.Empty;
@@ -82,7 +82,7 @@ namespace Diary_Sample.Models
         public string Password { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string NewEmail {get; set; } = string.Empty;
+        public string NewEmail { get; set; } = string.Empty;
     }
 
     public class UserAdminAccountViewModel : UserAdminViewModel
@@ -91,7 +91,7 @@ namespace Diary_Sample.Models
         public string UserName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string NewEmail {get; set; } = string.Empty;
+        public string NewEmail { get; set; } = string.Empty;
         public string OldPassword { get; set; } = string.Empty;
         public string NewPassword1 { get; set; } = string.Empty;
         public string NewPassword2 { get; set; } = string.Empty;
