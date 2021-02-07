@@ -10,6 +10,10 @@ describe("メニュー", () => {
     AuthTest.login();
   });
 
+  it("screenshot", () => {
+    cy.screenshot("01_menu");
+  });
+
   context("画面項目", () => {
     it("URL", () => {
       cy.url().should("eq", Cypress.config().baseUrl + "/Menu");

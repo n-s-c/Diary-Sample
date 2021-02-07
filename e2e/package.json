@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reg-suit": "reg-suit run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "4.11.0"
+    "cypress": "4.11.0",
+    "reg-keygen-git-hash-plugin": "^0.10.8",
+    "reg-notify-github-plugin": "^0.10.8",
+    "reg-publish-s3-plugin": "^0.10.8",
+    "reg-suit": "^0.10.8"
   }
 }

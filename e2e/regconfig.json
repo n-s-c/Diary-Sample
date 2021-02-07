@@ -1,0 +1,19 @@
+{
+  "core": {
+    "workingDir": ".reg",
+    "actualDir": "cypress/screenshots",
+    "thresholdRate": 0,
+    "ximgdiff": {
+      "invocationType": "client"
+    }
+  },
+  "plugins": {
+    "reg-keygen-git-hash-plugin": true,
+    "reg-notify-github-plugin": {
+      "clientId": "$REG_SUIT_CLIENT_ID"
+    },
+    "reg-publish-s3-plugin": {
+      "bucketName": "1-system-group-visual-regression-testing"
+    }
+  }
+}
