@@ -5,12 +5,13 @@
 // -----------------------------------------------------------------------
 using System;
 using Diary_Sample.Entities;
+using Diary_Sample.Infra.Mail;
 using Diary_Sample.Repositories;
 using Diary_Sample.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,9 +21,11 @@ namespace Diary_Sample
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -40,14 +43,27 @@ namespace Diary_Sample
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
 
+            if (_env.IsProduction())
+            {
+                // 本番環境用の設定
+                services.AddSingleton<IEmailSender, EmailSender>();
+            }
+            else if (_env.IsDevelopment())
+            {
+                // 開発環境用の設定
+                services.AddSingleton<IEmailSender, EmailSenderLocal>();
+            }
+
             services.AddDbContext<DiarySampleContext>(options =>
                         options.UseMySQL(
                             Configuration.GetConnectionString("DbConnectionString")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
              .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DiarySampleContext>();
-            services.AddRazorPages();
-
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/Login", "/");
+            });
             // セッション設定
             services.ConfigureApplicationCookie(options =>
             {
@@ -91,6 +107,7 @@ namespace Diary_Sample
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Auth}/{action=Index}");

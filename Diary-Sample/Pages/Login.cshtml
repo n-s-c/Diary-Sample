@@ -1,12 +1,13 @@
-@model AuthViewModel
+@page
+@model Login
 @{
     ViewData["Title"] = "ログイン";
 }
-@if(Model.Notification != string.Empty){
+@if(@Model.Input != null && @Model.Input.Notification != string.Empty){
 <script>
     window.onload = function() {
 
-        $('#toast_message').text("@Html.Raw(Model.Notification)");
+        $('#toast_message').text("@Html.Raw(@Model.Input.Notification)");
         $('#message').toast('show');
     }
 </script>
@@ -16,10 +17,10 @@
 <div class="row">
     <div class="col-md-4">
         <section>
-            <form asp-controller="Auth" asp-action="Login" id="account" method="post">
+            <form id="login" method="post">
                 <h6>アカウント情報を入力してください</h6>
                 <hr />
-@if(Model.Notification != string.Empty){
+@if(@Model.Input != null && @Model.Input.Notification != string.Empty){
 <!-- toast -->
                 <div id="message" class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
                     <div id="toast-header" class="toast-header theme_warning">
@@ -35,18 +36,18 @@
                 </div>
 }
                 <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheckBox1">
-                    <label class="custom-control-label" for="customCheckBox1">次回から自動ログインする</label>
+                    <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="customCheckBox1">
+                    <label asp-for="Input.RememberMe" class="custom-control-label" for="customCheckBox1"></label>
                 </div>
                 <br>
                 <div class="form-group">
@@ -54,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <p>
-                        <a  id="forgot-password" class="certification_link">パスワードをお忘れですか？</a>
+                        <a id="forgot-password" asp-page="./Auth/ForgotPassword" class="certification_link">パスワードをお忘れですか？</a>
                     </p>
                 </div>
             </form>
