@@ -35,7 +35,7 @@
                     <th class="post_date">投稿日</th>
                 </tr>
 @for(int i = 0; i < Model.DiaryList.Count; i++) {
-var no = i + 1 + ((Model.NowPage - 1) * MenuViewModel.PageCount);
+var no = Model.Page.getDisplayNo(i);
 var item = Model.DiaryList[i];
                 <tr class="theme_diary_content">
                     <td>@no</td>
@@ -56,23 +56,21 @@ var item = Model.DiaryList[i];
         </div>
         <div class="col-7">
             <ul class="pagination justify-content-end">
-@if(Model.NowPage > 1){
-    var prevPage = Model.NowPage - 1;
+@if(Model.Page.existPrevPage()){
                 <li class="page-item">
-                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@prevPage>&lt;&lt;</a>
+                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@Model.Page.getPrevPageNo()>&lt;&lt;</a>
                 </li>
 }
-@for(int i = 1; i < Model.TotalPageNumber + 1; i++) {
-    @if (Model.NowPage == i){
+@for(int i = 1; i < Model.Page.TotalPageNumber + 1; i++) {
+    @if (Model.Page.isNowPage(i)){
                 <li class="page-item"><a class="page-link theme" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
     } else {
                 <li class="page-item"><a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@i>@i</a></li>
     }
 }
-@if(Model.NowPage < Model.TotalPageNumber){
-    var nextPage = Model.NowPage + 1;
+@if(Model.Page.existNextPage()){
                 <li class="page-item">
-                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@nextPage>&gt;&gt;</a>
+                    <a class="page-link text-secondary" asp-controller="Menu" asp-action="Paging" asp-route-page=@Model.Page.getNextPageNo()>&gt;&gt;</a>
                 </li>
 }
             </ul>

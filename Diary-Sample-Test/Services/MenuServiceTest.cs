@@ -38,8 +38,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(0, model.TotalNumber);
-            Assert.Equal(0, model.TotalPageNumber);
+            Assert.Equal(0, model.Page.TotalNumber);
+            Assert.Equal(0, model.Page.TotalPageNumber);
             Assert.Equal("test", model.Notification);
             Assert.Empty(model.DiaryList);
         }
@@ -56,8 +56,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(1, model.TotalNumber);
-            Assert.Equal(1, model.TotalPageNumber);
+            Assert.Equal(1, model.Page.TotalNumber);
+            Assert.Equal(1, model.Page.TotalPageNumber);
             Assert.Equal("test", model.Notification);
             Assert.Single(model.DiaryList);
         }
@@ -74,8 +74,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(5, model.TotalNumber);
-            Assert.Equal(1, model.TotalPageNumber);
+            Assert.Equal(5, model.Page.TotalNumber);
+            Assert.Equal(1, model.Page.TotalPageNumber);
             Assert.Equal("test", model.Notification);
             Assert.Equal(5, model.DiaryList.Count);
         }
@@ -91,8 +91,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(0, model.TotalNumber);
-            Assert.Equal(0, model.TotalPageNumber);
+            Assert.Equal(0, model.Page.TotalNumber);
+            Assert.Equal(0, model.Page.TotalPageNumber);
             Assert.Empty(model.Notification);
             Assert.Empty(model.DiaryList);
         }
@@ -109,8 +109,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(1, model.TotalNumber);
-            Assert.Equal(1, model.TotalPageNumber);
+            Assert.Equal(1, model.Page.TotalNumber);
+            Assert.Equal(1, model.Page.TotalPageNumber);
             Assert.Empty(model.Notification);
             Assert.Single(model.DiaryList);
         }
@@ -127,8 +127,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(6, model.TotalNumber);
-            Assert.Equal(2, model.TotalPageNumber);
+            Assert.Equal(6, model.Page.TotalNumber);
+            Assert.Equal(2, model.Page.TotalPageNumber);
             Assert.Empty(model.Notification);
             Assert.Equal(5, model.DiaryList.Count);
         }
@@ -145,8 +145,8 @@ namespace Diary_Sample_Test.Services
 
             // 返却値の確認
             MenuViewModel model = Assert.IsType<MenuViewModel>(result);
-            Assert.Equal(6, model.TotalNumber);
-            Assert.Equal(2, model.TotalPageNumber);
+            Assert.Equal(6, model.Page.TotalNumber);
+            Assert.Equal(2, model.Page.TotalPageNumber);
             Assert.Empty(model.Notification);
             Assert.Single(model.DiaryList);
         }

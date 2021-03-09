@@ -1,0 +1,105 @@
+@using System.Globalization
+@{
+    ViewData["Title"] = "管理";
+}
+@model ManageViewModel
+<script>
+    function setUnlockId(id){
+        document.getElementById('unlockId').value = id;
+    }
+</script>
+<h3><img src="./../lib/bootstrap-icons/gear.svg" alt="" width="32" height="32" title="management">管理</h3>
+<div>
+    <h4></h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link manage_theme" id="manage_account" asp-area="" asp-controller="Manage" asp-action="Index">アカウント管理</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <form method="post"> 
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover account_list">
+                        <tr class="theme_account_title">
+                            <th class="no">No</th>
+                            <th class="user_id">ユーザID</th>
+                            <th class="user_name">ユーザ名</th>
+                            <th class="email">Eメール</th>
+                            <th class="reg_status">メール確認済</th>
+                            <th class="tel_no">電話番号</th>
+                            <th class="lock_status">ロック</th>
+                            <th class="fail_count">ログイン失敗回数</th>
+                        </tr>
+@for(int i = 0; i < Model.Users.Count; i++) {
+var no = Model.Page.getDisplayNo(i);
+var item = Model.Users[i];
+var confirmed = item.EmailConfirmed ? "済" : "未";
+                        <tr class="theme_account_content">
+                            <td>@no</td>
+                            <td>@item.Id</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Email</td>
+                            <td>@confirmed</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>
+                            @if(item.LockOut){
+                                @item.getDisplayLockOutDateTime()
+                                <button type="button" id="release_lock" data-toggle="modal" data-target="#unlockModal" onClick="setUnlockId('@item.Id')"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-unlock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>
+                                <path fill-rule="evenodd" d="M8.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                                </svg> 解除</button>
+                                
+                                <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-labelledby="unlockModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header theme_warning">
+                                                <h5 class="modal-title" id="unlockModalLabel">ロックを解除します。よろしいですか？</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn theme_warning" asp-controller="Manage" asp-action="Unlock">はい</button>
+                                                <button class="btn theme_cancel" data-dismiss="modal">いいえ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            }
+                            </td>
+                            <td>@item.AccessFailedCount</td>
+                        </tr>
+}
+                    </table>
+                </div>
+                <input type="hidden" id="unlockId" name="unlockId" />
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-11">
+                    <ul class="pagination justify-content-end">
+@if(Model.Page.existPrevPage()){
+                        <li class="page-item">
+                            <a class="page-link text-secondary" asp-controller="Manage" asp-action="Paging" asp-route-page=@Model.Page.getPrevPageNo()>&lt;&lt;</a>
+                        </li>
+}
+@for(int i = 1; i < Model.Page.TotalPageNumber + 1; i++) {
+    @if (Model.Page.isNowPage(i)) {
+                        <li class="page-item"><a class="page-link manage_theme" asp-controller="Manage" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    } else {
+                        <li class="page-item"><a class="page-link text-secondary" asp-controller="Manage" asp-action="Paging" asp-route-page=@i>@i</a></li>
+    }
+}
+@if(Model.Page.existNextPage()){
+                        <li class="page-item">
+                            <a class="page-link text-secondary" asp-controller="Manage" asp-action="Paging" asp-route-page=@Model.Page.getNextPageNo()>&gt;&gt;</a>
+                        </li>
+}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

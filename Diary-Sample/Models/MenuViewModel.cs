@@ -16,24 +16,13 @@ namespace Diary_Sample.Models
         public MenuViewModel(List<DiaryRow> diaryList, int totalNumber, int nowPage, string notification)
         {
             DiaryList = diaryList;
-            TotalNumber = totalNumber;
-            NowPage = nowPage;
-
-            // 全件数からページ数を求める
-            TotalPageNumber = TotalNumber % PageCount == 0
-                    ? TotalNumber / PageCount : (TotalNumber / PageCount) + 1;
-
+            Page = new PageViewModel(PageCount, totalNumber, nowPage);
             Notification = notification;
-
         }
         // 日記一覧（1ページ分）
         public List<DiaryRow> DiaryList { get; } = new List<DiaryRow>();
-        // 全件数
-        public int TotalNumber { get; set; } = 0;
-        // 現在のページ
-        public int NowPage { get; set; } = 1;
-        // 全ページ数
-        public int TotalPageNumber { get; } = 1;
+        // ページ情報
+        public PageViewModel Page { get; }
         // 通知
         public string Notification { get; set; } = string.Empty;
     }
