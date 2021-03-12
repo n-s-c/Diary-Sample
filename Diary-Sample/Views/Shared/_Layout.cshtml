@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc
+@inject UserManager<IdentityUser> userManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -29,10 +33,11 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <form class="form-inline" id="formEmail2" name="formEmail2"  method="post">
-                            <a class="nav-link text-light" asp-area="" asp-controller="UserAdmin" asp-action="Index"  asp-route-emailAddress=@TempData["Email"] >@TempData["Email"]</a>
+
+                        <form class="form-inline" id="formEmail2" name="formEmail2" method="post">
+                            <a class="nav-link text-light" asp-area="" asp-controller="UserAdminProfile" asp-action="Index">@await userManager.GetEmailAsync(await userManager.GetUserAsync(User).ConfigureAwait(false)).ConfigureAwait(false)</a>
                         </form>
-                        <form class="form-inline" asp-controller="Auth" asp-action="Logout" method="post" >
+                        <form class="form-inline" asp-controller="Auth" asp-action="Logout" method="post">
                             <li class="nav-item">
                                 <button id="Logout" type="submit" class="nav-link btn btn-link text-light">ログアウト</button>
                             </li>
