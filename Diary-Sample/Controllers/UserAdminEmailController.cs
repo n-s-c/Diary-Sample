@@ -46,7 +46,7 @@ namespace Diary_Sample.Controllers
 
             return View("Index", userAdminEmailViewModel);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Edit(UserAdminEmailViewModel userAdminEmailViewModel)
         {
@@ -79,7 +79,7 @@ namespace Diary_Sample.Controllers
                 Notification = EditOkMessage,
                 UpdateResult = true,
             };
-            
+
             return View("Index", outUserAdminEmailViewModel);
         }
 

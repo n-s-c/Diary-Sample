@@ -100,7 +100,7 @@ namespace Diary_Sample.Controllers
                 Notification = EditOkMessage,
                 UpdateResult = true,
             };
-            
+
             return View("Index", outUserAdminPasswordViewModel);
         }
 

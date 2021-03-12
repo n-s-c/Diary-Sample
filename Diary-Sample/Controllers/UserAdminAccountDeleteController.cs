@@ -14,7 +14,6 @@ namespace Diary_Sample.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<UserAdminAccountDeleteController> _logger;
 
-        private const string DeleteOkMessage = "削除しました。";
         private const string DeleteNgMessage = "エラーが発生して削除できませんでした。";
 
         public UserAdminAccountDeleteController(ILogger<UserAdminAccountDeleteController> logger,
@@ -59,7 +58,7 @@ namespace Diary_Sample.Controllers
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
             }
-            
+
             if (userId == null)
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
@@ -84,7 +83,7 @@ namespace Diary_Sample.Controllers
             }
 
             await _signInManager.SignOutAsync().ConfigureAwait(false);
-            
+
             return RedirectToAction("Index", "Auth");
         }
 

@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Diary_Sample.Models
 {
@@ -15,7 +11,7 @@ namespace Diary_Sample.Models
         public string UserName { get; set; } = string.Empty;
         [Required(AllowEmptyStrings = true)]
         public string PhoneNumber { get; set; } = string.Empty;
-        
+
         public string Notification { get; set; } = string.Empty;
 
         public bool UpdateResult { get; set; } = true;

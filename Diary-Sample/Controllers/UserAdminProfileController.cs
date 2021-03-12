@@ -91,7 +91,7 @@ namespace Diary_Sample.Controllers
 
             return View("Index", outUserAdminProfileViewModel);
         }
-        
+
         private IActionResult UpadateError(UserAdminProfileViewModel userAdminProfileViewModel, string message)
         {
             UserAdminProfileViewModel outUserAdminProfileViewModel = new UserAdminProfileViewModel

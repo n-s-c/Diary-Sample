@@ -16,9 +16,6 @@ namespace Diary_Sample.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<UserAdminAccountController> _logger;
 
-        private const string EditOkMessage = "更新しました。";
-        private const string DeleteOkMessage = "削除しました。";
-        private const string EditNgMessage = "エラーが発生して更新できませんでした。";
         private const string DeleteNgMessage = "エラーが発生して削除できませんでした。";
 
         public UserAdminAccountController(ILogger<UserAdminAccountController> logger,
@@ -29,7 +26,6 @@ namespace Diary_Sample.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -49,47 +45,7 @@ namespace Diary_Sample.Controllers
 
             return View("Index", userAdminAccountViewModel);
         }
-/*
-        [HttpPost]
-        public async Task<IActionResult> DeleteAccount(UserAdminAccountViewModel userAdminAccountViewModel)
-        {
 
-            string userId = userAdminAccountViewModel.UserId;
-            string password = userAdminAccountViewModel.Password;
-
-            if (!ModelState.IsValid)
-            {
-                return UpadateError(userId, DeleteNgMessage);
-            }
-            
-            if (userId == null)
-            {
-                return UpadateError(userId, DeleteNgMessage);
-            }
-
-            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null)
-            {
-                return UpadateError(userId, DeleteNgMessage);
-            }
-
-            bool retPassCheck = await _userManager.CheckPasswordAsync(user, password).ConfigureAwait(false);
-            if (!retPassCheck)
-            {
-                return UpadateError(userId, DeleteNgMessage);
-            }
-
-            var retDelete = await _userManager.DeleteAsync(user).ConfigureAwait(false);
-            if (!retDelete.Succeeded)
-            {
-                return UpadateError(userId, DeleteNgMessage);
-            }
-
-            await _signInManager.SignOutAsync().ConfigureAwait(false);
-            
-            return RedirectToAction("Index", "Auth");
-        }
-*/
         [HttpGet]
         public async Task<IActionResult> Download()
         {
