@@ -58,7 +58,8 @@ namespace Diary_Sample.Controllers
                 // IsValidだとRequiredを付けていない電話番号もチェックがかかる。
                 // バリデーションのエラー文言は出したいので、
                 // ユーザ名がnullの時だけエラーにする。
-                if (userName == null) {
+                if (userName == null)
+                {
                     return UpadateError(userAdminProfileViewModel, EditNgMessage);
                 }
             }
