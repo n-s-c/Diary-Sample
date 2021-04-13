@@ -18,6 +18,7 @@ namespace Diary_Sample.Controllers
         private const string EditNgMessage = "エラーが発生して更新できませんでした。";
         private const string PasswordMismatch = "変更後のパスワードと変更後のパスワード（再入力）が不一致です。";
         private const string PasswordMisstake = "現在のパスワードが間違っています。";
+        private const string PasswordIllegal = "変更後のパスワードが不正です。";
 
         public UserAdminPasswordController(ILogger<UserAdminPasswordController> logger,
                                     SignInManager<IdentityUser> signInManager,
@@ -32,16 +33,9 @@ namespace Diary_Sample.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                // ログイン画面に戻る
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return RedirectToAction("Index", "Auth");
-            }
 
             UserAdminPasswordViewModel userAdminPasswordViewModel = new UserAdminPasswordViewModel
             {
-                UserId = user.Id,
                 OldPassword = string.Empty,
                 NewPassword1 = string.Empty,
                 NewPassword2 = string.Empty,
@@ -75,48 +69,34 @@ namespace Diary_Sample.Controllers
             }
 
             // 念のため変更前のパスワードをチェックする
-            bool ret = await _userManager.CheckPasswordAsync(user, oldPassword).ConfigureAwait(false);
-            if (!ret)
+            bool retCheckPass = await _userManager.CheckPasswordAsync(user, oldPassword).ConfigureAwait(false);
+            if (!retCheckPass)
             {
                 return UpadateError(userAdminPasswordViewModel, PasswordMisstake);
             }
 
-            var identityResult = await _userManager.RemovePasswordAsync(user).ConfigureAwait(false);
-            if (!identityResult.Succeeded)
+            var retValidPass = await _userManager.PasswordValidators[0].ValidateAsync(_userManager, user, newPassword1).ConfigureAwait(false);
+            if (!retValidPass.Succeeded)
             {
-                return UpadateError(userAdminPasswordViewModel, EditNgMessage);
-            }
-            identityResult = await _userManager.AddPasswordAsync(user, newPassword1).ConfigureAwait(false);
-            if (!identityResult.Succeeded)
-            {
-                return UpadateError(userAdminPasswordViewModel, EditNgMessage);
+                return UpadateError(userAdminPasswordViewModel, PasswordIllegal);
             }
 
-            UserAdminPasswordViewModel outUserAdminPasswordViewModel = new UserAdminPasswordViewModel
-            {
-                UserId = user.Id,
-                NewPassword1 = string.Empty,
-                NewPassword2 = string.Empty,
-                Notification = EditOkMessage,
-                UpdateResult = true,
-            };
+            var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword1).ConfigureAwait(false);
 
-            return View("Index", outUserAdminPasswordViewModel);
+            userAdminPasswordViewModel.Notification = EditOkMessage;
+            userAdminPasswordViewModel.UpdateResult = true;
+
+            return View("Index", userAdminPasswordViewModel);
+
         }
 
         private IActionResult UpadateError(UserAdminPasswordViewModel userAdminPasswordViewModel, string message)
         {
-            UserAdminPasswordViewModel outUserAdminProfileViewModel = new UserAdminPasswordViewModel
-            {
-                UserId = userAdminPasswordViewModel.UserId,
-                OldPassword = userAdminPasswordViewModel.OldPassword,
-                NewPassword1 = userAdminPasswordViewModel.NewPassword1,
-                NewPassword2 = userAdminPasswordViewModel.NewPassword2,
-                Notification = message,
-                UpdateResult = false,
-            };
+            userAdminPasswordViewModel.Notification = message;
+            userAdminPasswordViewModel.UpdateResult = false;
 
-            return View("Index", outUserAdminProfileViewModel);
+          return View("Index", userAdminPasswordViewModel);
+
         }
 
     }

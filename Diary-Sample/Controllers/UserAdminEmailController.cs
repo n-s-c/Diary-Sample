@@ -30,23 +30,16 @@ namespace Diary_Sample.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                // ログイン画面に戻る
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return RedirectToAction("Index", "Auth");
-            }
 
             UserAdminEmailViewModel userAdminEmailViewModel = new UserAdminEmailViewModel
             {
-                UserId = user.Id,
                 Email = user.Email,
                 NewEmail = string.Empty,
             };
 
             return View("Index", userAdminEmailViewModel);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Edit(UserAdminEmailViewModel userAdminEmailViewModel)
         {
@@ -71,30 +64,21 @@ namespace Diary_Sample.Controllers
                 return UpadateError(userAdminEmailViewModel, EditNgMessage);
             }
 
-            UserAdminEmailViewModel outUserAdminEmailViewModel = new UserAdminEmailViewModel
-            {
-                UserId = user.Id,
-                Email = newEmail,
-                NewEmail = string.Empty,
-                Notification = EditOkMessage,
-                UpdateResult = true,
-            };
-
-            return View("Index", outUserAdminEmailViewModel);
+            userAdminEmailViewModel.Email = newEmail;
+            userAdminEmailViewModel.NewEmail = string.Empty;
+            userAdminEmailViewModel.Notification = EditOkMessage;
+            userAdminEmailViewModel.UpdateResult = true;
+            
+            return View("Index", userAdminEmailViewModel);
         }
 
         private IActionResult UpadateError(UserAdminEmailViewModel userAdminEmailViewModel, string message)
         {
-            UserAdminEmailViewModel outUserAdminEmailViewModel = new UserAdminEmailViewModel
-            {
-                UserId = userAdminEmailViewModel.UserId,
-                Email = userAdminEmailViewModel.Email,
-                NewEmail = userAdminEmailViewModel.NewEmail,
-                Notification = message,
-                UpdateResult = false,
-            };
 
-            return View("Index", outUserAdminEmailViewModel);
+            userAdminEmailViewModel.Notification = message;
+            userAdminEmailViewModel.UpdateResult = false;
+
+            return View("Index", userAdminEmailViewModel);
         }
     }
 }

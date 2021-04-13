@@ -9,9 +9,10 @@ namespace Diary_Sample.Models
         [Required(ErrorMessage = "ユーザ名は必須です。")]
         [Display(Name = "ユーザ名")]
         public string UserName { get; set; } = string.Empty;
+
         [Required(AllowEmptyStrings = true)]
         public string PhoneNumber { get; set; } = string.Empty;
-
+        
         public string Notification { get; set; } = string.Empty;
 
         public bool UpdateResult { get; set; } = true;

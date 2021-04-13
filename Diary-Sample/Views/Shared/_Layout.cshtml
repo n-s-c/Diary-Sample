@@ -10,6 +10,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/account_settings.css" />
 </head>
 <body>
     <header>
@@ -35,7 +36,9 @@
                     <ul class="navbar-nav">
 
                         <form class="form-inline" id="formEmail2" name="formEmail2" method="post">
-                            <a class="nav-link text-light" asp-area="" asp-controller="UserAdminProfile" asp-action="Index">@await userManager.GetEmailAsync(await userManager.GetUserAsync(User).ConfigureAwait(false)).ConfigureAwait(false)</a>
+                            <li class="nav-item">
+                                <a class="nav-link user_email" asp-area="" asp-controller="UserAdminProfile" asp-action="Index">@await userManager.GetEmailAsync(await userManager.GetUserAsync(User).ConfigureAwait(false)).ConfigureAwait(false)</a>
+                            </li>
                         </form>
                         <form class="form-inline" asp-controller="Auth" asp-action="Logout" method="post">
                             <li class="nav-item">

@@ -4,8 +4,6 @@ namespace Diary_Sample.Models
 {
     public class UserAdminPasswordViewModel
     {
-        public string UserId { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "現在のパスワードは必須です。")]
         [DataType(DataType.Password)]
         [Display(Name = "現在のパスワード")]

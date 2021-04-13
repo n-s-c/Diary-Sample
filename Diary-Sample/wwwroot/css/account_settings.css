@@ -1,0 +1,62 @@
+body {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+  }
+::selection {
+    background: rgba(19, 94, 255, 0.411);
+}
+/**
+* アカウント設定
+*/
+.theme {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme:hover {
+    color: white;
+    background-color: rgb(3, 97, 185);
+}
+.theme:read-only, .theme:focus {
+    color: white;
+    background-color: rgb(3, 97, 185);
+    border-color: rgb(3, 97, 185);
+}
+.theme_background {
+    color: black;
+    background-color: rgb(238, 247, 255);
+}
+.theme_positive {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_positive:hover {
+    color:white;
+    background-color: rgb(8, 209, 75);
+}
+.theme_warning {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_warning:hover {
+    color: white;
+    background-color: rgb(255, 115, 126);
+}
+.theme_cancel{
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+.theme_cancel:hover {
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+
+.user_email {
+    color: rgb(8, 209, 75) !important;
+}
+
+.icon-color {
+    color: rgb(3, 97, 185) !important;
+}
+

@@ -14,6 +14,7 @@ namespace Diary_Sample.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<UserAdminAccountDeleteController> _logger;
 
+        private const string DeleteOkMessage = "削除しました。";
         private const string DeleteNgMessage = "エラーが発生して削除できませんでした。";
 
         public UserAdminAccountDeleteController(ILogger<UserAdminAccountDeleteController> logger,
@@ -30,12 +31,6 @@ namespace Diary_Sample.Controllers
         public async Task<IActionResult> DeleteAccountIndex()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                // ログイン画面に戻る
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return RedirectToAction("Index", "Auth");
-            }
 
             UserAdminAccountDeleteViewModel userAdminAccountDeleteViewModel = new UserAdminAccountDeleteViewModel
             {
@@ -48,7 +43,7 @@ namespace Diary_Sample.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteAccount(UserAdminAccountDeleteViewModel userAdminAccountDeleteViewModel)
+        public async Task<IActionResult> Delete(UserAdminAccountDeleteViewModel userAdminAccountDeleteViewModel)
         {
 
             string userId = userAdminAccountDeleteViewModel.UserId;
@@ -58,7 +53,7 @@ namespace Diary_Sample.Controllers
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
             }
-
+            
             if (userId == null)
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
@@ -83,20 +78,15 @@ namespace Diary_Sample.Controllers
             }
 
             await _signInManager.SignOutAsync().ConfigureAwait(false);
-
+            
             return RedirectToAction("Index", "Auth");
         }
 
         private IActionResult UpadateError(UserAdminAccountDeleteViewModel userAdminAccountDeleteViewModel, string message)
         {
-            UserAdminAccountDeleteViewModel outUserAdminAccountDeleteViewModel = new UserAdminAccountDeleteViewModel
-            {
-                UserId = userAdminAccountDeleteViewModel.UserId,
-                Password = string.Empty,
-                Notification = message,
-            };
+            userAdminAccountDeleteViewModel.Notification = message;
 
-            return View("Index", outUserAdminAccountDeleteViewModel);
+            return View("Index", userAdminAccountDeleteViewModel);
         }
 
     }

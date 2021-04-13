@@ -30,12 +30,6 @@ namespace Diary_Sample.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                // ログイン画面に戻る
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return RedirectToAction("Index", "Auth");
-            }
 
             UserAdminProfileViewModel userAdminProfileViewModel = new UserAdminProfileViewModel
             {
@@ -58,8 +52,7 @@ namespace Diary_Sample.Controllers
                 // IsValidだとRequiredを付けていない電話番号もチェックがかかる。
                 // バリデーションのエラー文言は出したいので、
                 // ユーザ名がnullの時だけエラーにする。
-                if (userName == null)
-                {
+                if (userName == null) {
                     return UpadateError(userAdminProfileViewModel, EditNgMessage);
                 }
             }
@@ -81,30 +74,18 @@ namespace Diary_Sample.Controllers
                 return UpadateError(userAdminProfileViewModel, EditNgMessage);
             }
 
-            UserAdminProfileViewModel outUserAdminProfileViewModel = new UserAdminProfileViewModel
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber,
-                Notification = EditOkMessage,
-                UpdateResult = true,
-            };
+            userAdminProfileViewModel.Notification = EditOkMessage;
+            userAdminProfileViewModel.UpdateResult = true;
 
-            return View("Index", outUserAdminProfileViewModel);
+            return View("Index", userAdminProfileViewModel);
         }
-
+        
         private IActionResult UpadateError(UserAdminProfileViewModel userAdminProfileViewModel, string message)
         {
-            UserAdminProfileViewModel outUserAdminProfileViewModel = new UserAdminProfileViewModel
-            {
-                UserId = userAdminProfileViewModel.UserId,
-                UserName = userAdminProfileViewModel.UserName,
-                PhoneNumber = userAdminProfileViewModel.PhoneNumber,
-                Notification = message,
-                UpdateResult = false,
-            };
+            userAdminProfileViewModel.Notification = message;
+            userAdminProfileViewModel.UpdateResult = false;
 
-            return View("Index", outUserAdminProfileViewModel);
+            return View("Index", userAdminProfileViewModel);
         }
     }
 

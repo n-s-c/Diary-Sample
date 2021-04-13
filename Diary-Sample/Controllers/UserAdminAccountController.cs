@@ -16,6 +16,9 @@ namespace Diary_Sample.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<UserAdminAccountController> _logger;
 
+        private const string EditOkMessage = "更新しました。";
+        private const string DeleteOkMessage = "削除しました。";
+        private const string EditNgMessage = "エラーが発生して更新できませんでした。";
         private const string DeleteNgMessage = "エラーが発生して削除できませんでした。";
 
         public UserAdminAccountController(ILogger<UserAdminAccountController> logger,
@@ -27,21 +30,13 @@ namespace Diary_Sample.Controllers
             _logger = logger;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                // ログイン画面に戻る
-                await _signInManager.SignOutAsync().ConfigureAwait(false);
-                return RedirectToAction("Index", "Auth");
-            }
 
-            UserAdminAccountViewModel userAdminAccountViewModel = new UserAdminAccountViewModel
-            {
-                UserId = user.Id,
-            };
+            UserAdminAccountViewModel userAdminAccountViewModel = new UserAdminAccountViewModel();
 
             return View("Index", userAdminAccountViewModel);
         }
@@ -50,33 +45,17 @@ namespace Diary_Sample.Controllers
         public async Task<IActionResult> Download()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
-            if (user == null)
-            {
-                return UpadateError(user.Id, DeleteNgMessage);
-            }
-            var value = "{\"Id\":" + user.Id +
-                        ",\"UserName\":" + user.UserName +
-                        ",\"Email\":" + user.Email +
-                        ",\"EmailConfirmed\":" + user.EmailConfirmed +
-                        ",\"PhoneNumber\":" + user.PhoneNumber +
+
+            var value = "{\"Id\":" + user.Id + 
+                        ",\"UserName\":" + user.UserName + 
+                        ",\"Email\":" + user.Email + 
+                        ",\"EmailConfirmed\":" + user.EmailConfirmed + 
+                        ",\"PhoneNumber\":" + user.PhoneNumber + 
                         ",\"PhoneNumberConfirmed\":" + user.PhoneNumberConfirmed + "}";
             var filename = "PersonalData.json";
 
             return File(new MemoryStream(Encoding.UTF8.GetBytes(value)), "application/json", filename);
         }
-
-        private IActionResult UpadateError(string userId, string message)
-        {
-            UserAdminAccountViewModel outUserAdminAccountViewModel = new UserAdminAccountViewModel
-            {
-                UserId = userId,
-                Notification = message,
-                UpdateResult = false,
-            };
-
-            return View("Index", outUserAdminAccountViewModel);
-        }
-
     }
 
 }
