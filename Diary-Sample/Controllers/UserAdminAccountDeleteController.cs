@@ -28,7 +28,7 @@ namespace Diary_Sample.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> DeleteAccountIndex()
+        public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
