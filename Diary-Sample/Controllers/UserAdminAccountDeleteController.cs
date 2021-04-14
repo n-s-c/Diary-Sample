@@ -53,7 +53,7 @@ namespace Diary_Sample.Controllers
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
             }
-            
+
             if (userId == null)
             {
                 return UpadateError(userAdminAccountDeleteViewModel, DeleteNgMessage);
@@ -78,7 +78,7 @@ namespace Diary_Sample.Controllers
             }
 
             await _signInManager.SignOutAsync().ConfigureAwait(false);
-            
+
             return RedirectToAction("Index", "Auth");
         }
 

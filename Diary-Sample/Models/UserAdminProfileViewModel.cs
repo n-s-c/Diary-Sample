@@ -12,7 +12,7 @@ namespace Diary_Sample.Models
 
         [Required(AllowEmptyStrings = true)]
         public string PhoneNumber { get; set; } = string.Empty;
-        
+
         public string Notification { get; set; } = string.Empty;
 
         public bool UpdateResult { get; set; } = true;

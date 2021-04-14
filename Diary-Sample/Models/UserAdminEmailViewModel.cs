@@ -12,7 +12,7 @@ namespace Diary_Sample.Models
         [Required(ErrorMessage = "変更後Eメールは必須です。")]
         [EmailAddress]
         [Display(Name = "変更後Eメール")]
-        public string NewEmail {get; set; } = string.Empty;
+        public string NewEmail { get; set; } = string.Empty;
 
         public string Notification { get; set; } = string.Empty;
 

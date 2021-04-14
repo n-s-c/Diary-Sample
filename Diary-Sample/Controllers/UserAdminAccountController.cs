@@ -47,10 +47,10 @@ namespace Diary_Sample.Controllers
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
             var value = "{\"Id\":" + user.Id + 
-                        ",\"UserName\":" + user.UserName + 
-                        ",\"Email\":" + user.Email + 
-                        ",\"EmailConfirmed\":" + user.EmailConfirmed + 
-                        ",\"PhoneNumber\":" + user.PhoneNumber + 
+                        ",\"UserName\":" + user.UserName +
+                        ",\"Email\":" + user.Email +
+                        ",\"EmailConfirmed\":" + user.EmailConfirmed +
+                        ",\"PhoneNumber\":" + user.PhoneNumber +
                         ",\"PhoneNumberConfirmed\":" + user.PhoneNumberConfirmed + "}";
             var filename = "PersonalData.json";
 

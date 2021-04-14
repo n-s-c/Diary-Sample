@@ -6,5 +6,4 @@ namespace Diary_Sample.Models
 
         public bool UpdateResult { get; set; } = true;
     }
-
 }

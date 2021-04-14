@@ -95,7 +95,7 @@ namespace Diary_Sample.Controllers
             userAdminPasswordViewModel.Notification = message;
             userAdminPasswordViewModel.UpdateResult = false;
 
-          return View("Index", userAdminPasswordViewModel);
+            return View("Index", userAdminPasswordViewModel);
 
         }
 
