@@ -46,7 +46,7 @@ namespace Diary_Sample.Controllers
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
-            var value = "{\"Id\":" + user.Id + 
+            var value = "{\"Id\":" + user.Id +
                         ",\"UserName\":" + user.UserName +
                         ",\"Email\":" + user.Email +
                         ",\"EmailConfirmed\":" + user.EmailConfirmed +
