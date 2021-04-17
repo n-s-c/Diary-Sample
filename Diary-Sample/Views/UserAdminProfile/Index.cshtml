@@ -80,6 +80,7 @@
                                     </svg> 電話番号
                                 </label>
                                 <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" asp-for=@Model.PhoneNumber />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             </div>
                             <button id="update-profile-button" class="btn btn-sm theme" asp-controller="UserAdminProfile" asp-action="Edit">保存</button>
                         </form>

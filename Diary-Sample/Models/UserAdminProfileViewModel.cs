@@ -10,7 +10,8 @@ namespace Diary_Sample.Models
         [Display(Name = "ユーザ名")]
         public string UserName { get; set; } = string.Empty;
 
-        [Required(AllowEmptyStrings = true)]
+        [Phone(ErrorMessage = "電話番号が不正です。")]
+        [Display(Name = "電話番号")]
         public string PhoneNumber { get; set; } = string.Empty;
 
         public string Notification { get; set; } = string.Empty;

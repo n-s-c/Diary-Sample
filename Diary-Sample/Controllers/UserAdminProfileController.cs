@@ -51,8 +51,9 @@ namespace Diary_Sample.Controllers
             {
                 // IsValidだとRequiredを付けていない電話番号もチェックがかかる。
                 // バリデーションのエラー文言は出したいので、
-                // ユーザ名がnullの時だけエラーにする。
-                if (userName == null)
+                // ユーザ名がnullの時だけエラーと、
+                // 電話番号が入力されている（ここに来た場合は電話番号形式エラー）
+                if ((userName == null) || (phoneNumber != null))
                 {
                     return UpadateError(userAdminProfileViewModel, EditNgMessage);
                 }
@@ -80,7 +81,7 @@ namespace Diary_Sample.Controllers
 
             return View("Index", userAdminProfileViewModel);
         }
-
+        
         private IActionResult UpadateError(UserAdminProfileViewModel userAdminProfileViewModel, string message)
         {
             userAdminProfileViewModel.Notification = message;
