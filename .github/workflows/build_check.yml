@@ -18,7 +18,7 @@ jobs:
     - name: Install dotnet format
       run: dotnet tool install -g dotnet-format
     - name: format-check
-      run: dotnet format --check --verbosity q --dry-run
+      run: dotnet format --check --verbosity q
     - name: Install dependencies
       run: dotnet restore
     - name: Build

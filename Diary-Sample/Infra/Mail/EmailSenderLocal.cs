@@ -4,7 +4,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Diary_Sample.Infra.Mail
@@ -17,13 +16,16 @@ namespace Diary_Sample.Infra.Mail
             _logger = logger;
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public Task SendEmailAsync(string email, string name, string subject, string htmlMessage, string textMessage)
         {
             // ローカルではログに出力する
             return Task.Run(() =>
             {
-                _logger.LogInformation($"{email}");
-                _logger.LogInformation($"{htmlMessage}");
+                _logger.LogInformation($"送信先アドレス：{email}");
+                _logger.LogInformation($"宛先名：{name}");
+                _logger.LogInformation($"件名：{subject}");
+                _logger.LogInformation($"HTML：{htmlMessage}");
+                _logger.LogInformation($"TEXT：{textMessage}");
             });
         }
     }

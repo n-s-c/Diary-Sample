@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Diary_Sample.Infra.Mail;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
@@ -62,8 +62,10 @@ namespace Diary_Sample.Pages.Auth
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
+                    user.UserName,
                     "Reset Password",
-                    $"パスワードをリセットするにはリンクをクリックしてください。{HtmlEncoder.Default.Encode(callbackUrl)}").ConfigureAwait(false);
+                    $"パスワードをリセットするにはリンクをクリックしてください。{HtmlEncoder.Default.Encode(callbackUrl)}",
+                    $"パスワードをリセットするにはリンクをクリックしてください。{callbackUrl}").ConfigureAwait(false);
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

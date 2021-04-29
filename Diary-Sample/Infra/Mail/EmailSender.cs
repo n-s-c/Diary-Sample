@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SendGrid;
@@ -30,17 +29,18 @@ namespace Diary_Sample.Infra.Mail
             _apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY") ?? string.Empty;
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public Task SendEmailAsync(string email, string name, string subject, string htmlMessage, string textMessage)
         {
             var services = ConfigureServices(new ServiceCollection()).BuildServiceProvider();
             var client = services.GetRequiredService<ISendGridClient>();
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress(_senderMailAddress, string.Empty),
+                From = new EmailAddress(_senderMailAddress, _senderMailAddress),
                 Subject = subject,
             };
-            msg.AddContent(MimeType.Text, htmlMessage);
-            msg.AddTo(new EmailAddress(email, string.Empty));
+            msg.AddContent(MimeType.Html, htmlMessage);
+            msg.AddContent(MimeType.Text, textMessage);
+            msg.AddTo(new EmailAddress(email, $"{name} 様"));
 
             // メール送信
             return Task.Run(() =>
@@ -52,8 +52,11 @@ namespace Diary_Sample.Infra.Mail
                 }
                 else
                 {
-                    _logger.LogInformation($"{email}");
-                    _logger.LogInformation($"{htmlMessage}");
+                    _logger.LogInformation($"送信先アドレス：{email}");
+                    _logger.LogInformation($"宛先名：{name}");
+                    _logger.LogInformation($"件名：{subject}");
+                    _logger.LogInformation($"HTML：{htmlMessage}");
+                    _logger.LogInformation($"TEXT：{textMessage}");
                 }
             });
         }
