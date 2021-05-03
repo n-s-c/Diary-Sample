@@ -49,14 +49,7 @@ namespace Diary_Sample.Controllers
 
             if (!ModelState.IsValid)
             {
-                // IsValidだとRequiredを付けていない電話番号もチェックがかかる。
-                // バリデーションのエラー文言は出したいので、
-                // ユーザ名がnullの時だけエラーと、
-                // 電話番号が入力されている（ここに来た場合は電話番号形式エラー）
-                if ((userName == null) || (phoneNumber != null))
-                {
-                    return UpadateError(userAdminProfileViewModel, EditNgMessage);
-                }
+                return UpadateError(userAdminProfileViewModel, EditNgMessage);
             }
 
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);

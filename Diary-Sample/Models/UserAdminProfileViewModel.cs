@@ -12,7 +12,7 @@ namespace Diary_Sample.Models
 
         [Phone(ErrorMessage = "電話番号が不正です。")]
         [Display(Name = "電話番号")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = string.Empty;
 
         public string Notification { get; set; } = string.Empty;
 
