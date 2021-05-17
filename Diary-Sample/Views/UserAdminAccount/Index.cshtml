@@ -1,0 +1,77 @@
+
+@model Diary_Sample.Models.UserAdminAccountViewModel
+
+@{
+    ViewData["Title"] = "アカウント設定";
+}
+@if (Model.Notification != string.Empty)
+{<!-- toast -->
+                <div id="message" class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+                    @if (Model.UpdateResult == true)
+                    {
+                        <div id="toast-header" class="toast-header bg-success">
+                            <strong class="mr-auto">Notification</strong>
+                            <small>just now</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="toast-header" class="toast-header bg-warning">
+                            <strong class="mr-auto">Notification</strong>
+                            <small>just now</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+
+                    <div class="toast-body">
+                        <span id="toast_message"></span>
+                    </div>
+                </div>
+
+                                <script>
+    window.onload = function() {
+
+        $('#toast_message').text("@Html.Raw(Model.Notification)");
+        $('#message').toast('show');
+    }
+                                </script>}
+<div class="container">
+    <h3><img src="./../lib/bootstrap-icons/person-circle.svg" alt="" width="32" height="32" title="account"> アカウント設定</h3>
+    <div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav nav-pills flex-column">
+                    <form id="menu-form" method="get">
+                        <li class="nav-item"><a class="nav-link" id="profile" asp-controller="UserAdminProfile" asp-action="Index" >プロフィール</a></li>
+                        <li class="nav-item"><a class="nav-link" id="email" asp-controller="UserAdminEmail" asp-action="Index" >Eメール</a></li>
+                        <li class="nav-item"><a class="nav-link" id="change-password" asp-controller="UserAdminPassword" asp-action="Index" >パスワード</a></li>
+                        <li class="nav-item"><a class="nav-link theme" id="personal-data" asp-controller="UserAdminAccount" asp-action="Index" >アカウントデータ</a></li>
+                    </form>
+                </ul>
+            </div>
+            <div class="col-md-9">
+
+                    <p>
+                        あなたのアカウントには個人データが含まれています。<br>
+                        このページでは、そのデータをダウンロードまたは削除できます。
+                    </p>
+                    <p>
+                        <strong>データを削除するとアカウントは完全に削除され、復元することはできません。</strong>
+                    </p>
+                    <p>
+                        <a class="btn btn-sm theme" asp-controller="UserAdminAccount" asp-action="Download"  >ダウンロード</a>
+                    </p>    
+                    <p>
+                        <a id="delete" class="btn btn-sm theme_warning" asp-controller="UserAdminAccountDelete" asp-action="Index" >削除</a>
+                    </p>
+ 
+            </div>
+        </div>
+    </div>
+</div>

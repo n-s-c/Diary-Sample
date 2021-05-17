@@ -5,16 +5,19 @@
 // -----------------------------------------------------------------------
 using System;
 using Diary_Sample.Entities;
+using Diary_Sample.Infra;
 using Diary_Sample.Infra.Mail;
 using Diary_Sample.Repositories;
 using Diary_Sample.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StackExchange.Redis;
 
 namespace Diary_Sample
 {
@@ -58,11 +61,20 @@ namespace Diary_Sample
                             Configuration.GetConnectionString("DbConnectionString")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
              .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<DiarySampleContext>();
+                .AddEntityFrameworkStores<DiarySampleContext>()
+                .AddDefaultTokenProviders();
             services.AddRazorPages(options =>
             {
                 options.Conventions.AddPageRoute("/Login", "/");
             });
+
+            // Redis
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(Configuration.GetConnectionString("SessionConnectionString")));
+            services.AddScoped<RedisTicketStore>();
+            services.AddDataProtection()
+                    .SetApplicationName("Diary_Sample.Infra")
+                .PersistKeysToStackExchangeRedis(services.BuildServiceProvider().GetRequiredService<IConnectionMultiplexer>(), "DataProtection-Keys");
+
             // セッション設定
             services.ConfigureApplicationCookie(options =>
             {
@@ -74,10 +86,12 @@ namespace Diary_Sample
                 options.LoginPath = "/Auth/Unauthorized";
                 // HTTPのみでCookieを使用。（クライアント側のスクリプトでCookieにアクセスさせない）
                 options.Cookie.HttpOnly = true;
-                // セッションタイムアウト間隔（分単位）
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                // 次回から自動ログインするを指定した際のCookie保存期間。指定しない場合の保存期間はセッション（ブラウザを閉じるまで）
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 // timeout 属性で設定した時間の半分を過ぎてアクセスすると、有効期限が延長された認証チケット/クッキーが再発行されます。
                 options.SlidingExpiration = true;
+                // セッションストアにRedisTicketStoreを使用する
+                options.SessionStore = services.BuildServiceProvider().GetRequiredService<RedisTicketStore>();
             });
         }
 
@@ -101,6 +115,7 @@ namespace Diary_Sample
 
             app.UseRouting();
 
+            // 認証・認可
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -28,6 +28,8 @@
     <PackageReference Include="AspNetCore.RouteAnalyzer" Version="0.5.3"/>
     <PackageReference Include="SendGrid" Version="9.22.0"/>
     <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.1"/>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1"/>
     <AdditionalFiles Include="stylecop.json" Link="stylecop.json"/>
   </ItemGroup>
 </Project>
