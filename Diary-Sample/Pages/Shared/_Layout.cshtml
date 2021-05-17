@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,6 +16,17 @@
                 aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    @if ("/Auth/ForgotPassword".Equals(ViewContext.RouteData.Values["page"])){
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/">ログインへ戻る</a>
+                        </li>
+                    </ul>
+                    }
+                </div>
             </div>
         </nav>
     </header>
@@ -30,9 +41,9 @@
             &copy; 2020 - Diary_Sample</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <scrip src="~/lib/jquery/dist/jquery.min.js"></scrip>
+    <scrip src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></scrip>
+    <scrip src="~/js/site.js" asp-append-version="true"></scrip>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

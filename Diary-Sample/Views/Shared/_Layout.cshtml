@@ -42,7 +42,9 @@
                         </form>
                         <form class="form-inline" asp-controller="Auth" asp-action="Logout" method="post">
                             <li class="nav-item">
-                                <button id="Logout" type="submit" class="nav-link btn btn-link text-light">ログアウト</button>
+                                <form class="form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/")" method="post" >
+                                    <button type="submit" class="nav-link btn btn-link text-light">ログアウト</button>
+                                </form>
                             </li>
                         </form>
                     </ul>

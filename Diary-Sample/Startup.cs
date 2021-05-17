@@ -6,6 +6,7 @@
 using System;
 using Diary_Sample.Entities;
 using Diary_Sample.Infra;
+using Diary_Sample.Infra.Mail;
 using Diary_Sample.Repositories;
 using Diary_Sample.Services;
 using Microsoft.AspNetCore.Builder;
@@ -22,9 +23,11 @@ namespace Diary_Sample
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -42,13 +45,28 @@ namespace Diary_Sample
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
 
+            if (_env.IsProduction())
+            {
+                // 本番環境用の設定
+                services.AddSingleton<IEmailSender, EmailSender>();
+            }
+            else if (_env.IsDevelopment())
+            {
+                // 開発環境用の設定
+                services.AddSingleton<IEmailSender, EmailSenderLocal>();
+            }
+
             services.AddDbContext<DiarySampleContext>(options =>
                         options.UseMySQL(
                             Configuration.GetConnectionString("DbConnectionString")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
              .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<DiarySampleContext>().AddDefaultTokenProviders();
-            services.AddRazorPages();
+                .AddEntityFrameworkStores<DiarySampleContext>()
+                .AddDefaultTokenProviders();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/Login", "/");
+            });
 
             // Redis
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(Configuration.GetConnectionString("SessionConnectionString")));
@@ -65,7 +83,7 @@ namespace Diary_Sample
                 // アクセスが禁止されているリソースにアクセスしようとしたときにリダイレクトする相対パス
                 // options.AccessDeniedPath = "/Auth/AccessDenied";
                 // 認証されていないユーザーがリソースにアクセスしようとしたときにリダイレクトする相対パス
-                options.LoginPath = "/Auth/NotAuthenticated";
+                options.LoginPath = "/Auth/Unauthorized";
                 // HTTPのみでCookieを使用。（クライアント側のスクリプトでCookieにアクセスさせない）
                 options.Cookie.HttpOnly = true;
                 // 次回から自動ログインするを指定した際のCookie保存期間。指定しない場合の保存期間はセッション（ブラウザを閉じるまで）
@@ -103,6 +121,7 @@ namespace Diary_Sample
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Auth}/{action=Index}");
