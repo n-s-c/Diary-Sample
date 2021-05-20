@@ -38,8 +38,7 @@ namespace Diary_Sample.Models
         {
             using (UserManager<IdentityUser>? um = userManager ?? throw new ArgumentNullException(nameof(userManager)))
             {
-                return (from user in um.Users select new UserViewModel(user))
-.ToList<UserViewModel>();
+                return (from user in um.Users select new UserViewModel(user)).ToList<UserViewModel>();
             }
         }
         // 指定ページのユーザリストを取得する
