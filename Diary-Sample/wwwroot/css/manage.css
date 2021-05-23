@@ -1,0 +1,84 @@
+body {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+  }
+::selection {
+    background: rgba(19, 94, 255, 0.411);
+}
+
+/**
+* 管理
+*/
+.manage_theme, .manage_theme:hover {
+    color: white;
+    background-color: rgb(49, 199, 199);
+    border-color: rgb(0, 255, 255);
+}
+.manage_theme:read-only, .manage_theme:focus {
+    background-color: rgb(49, 199, 199) !important;
+    color: white;
+    border-color: rgb(0, 255, 255);
+}
+.manage_theme::selection {
+    color:white;
+}
+
+
+/**
+* アカウント一覧
+*/
+.theme_account_title {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:white;
+    background-color: rgb(103, 145, 209);
+}
+.theme_account_title:hover{
+    color:white !important;
+    background-color: rgb(103, 145, 209) !important;
+}
+.theme_account_content {
+    font-family: "UD デジタル 教科書体 N-B", Arial, Helvetica, sans-serif, monospace;
+    color:gray;
+    background-color: rgb(238, 236, 223);
+}
+table.account_list {
+    font-size:10pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table.account_list th.no {
+    width: 5%;
+}
+table.account_list th.user_id {
+    width: 20%;
+}
+table.account_list th.user_name {
+    width: 15%;
+}
+table.account_list th.email {
+    width: 15%;
+}
+table.account_list th.reg_status {
+    width: 8%;
+}
+table.account_list th.tel_no {
+    width: 15%;
+}
+table.account_list th.lock_status {
+    width: 12%;
+}
+table.account_list th.fail_count {
+    width: 10%;
+}
+table.account_list th {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+}
+table.account_list td {
+    font-family: "BIZ UDGothic", Arial, Helvetica, sans-serif, monospace;
+    font-weight: bold;
+}
+
+.user_email {
+    color: rgb(38, 8, 209) !important;
+}
