@@ -1,0 +1,21 @@
+<!-- toast -->
+<div id="message" class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="toast-header" class="toast-header @Model.NotificationColor">
+    <strong class="mr-auto">Notification</strong>
+    <small>just now</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="toast-body">
+        <span id="toast_message"></span>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+
+        $('#toast_message').text("@Html.Raw(Model.Notification)");
+        $('#message').toast('show');
+    }
+</script>

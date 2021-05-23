@@ -3,6 +3,7 @@
 // Copyright (c) 1-system-group. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
 using System.Threading.Tasks;
 using Diary_Sample.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,70 @@ namespace Diary_Sample.Controllers
         public IActionResult Index()
         {
             return View(new ManageViewModel(_userManager, 1));
+        }
+        [HttpGet]
+        public IActionResult NewEntry()
+        {
+            // アカウント新規登録画面へ遷移
+            return View("CreateAccount", new CreateAccountViewModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateAccountViewModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("CreateAccount", model);
+            }
+
+            var user = new IdentityUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                // FIXME メール認証を作成したら消す
+                EmailConfirmed = true,
+            };
+
+            if (model.Password1 != model.Password2)
+            {
+                // パスワード不一致エラー
+                model.Notification = "パスワードとパスワード（再入力）が不一致です。";
+                model.NotificationColor = "manage_theme_warning";
+                return View("CreateAccount", model);
+            }
+
+            IdentityResult result = await _userManager.PasswordValidators[0].ValidateAsync(_userManager, user, model.Password1).ConfigureAwait(false);
+            if (result != IdentityResult.Success)
+            {
+                // パスワードエラー
+                model.Notification = "パスワードが不正です。";
+                model.NotificationColor = "manage_theme_warning";
+                return View("CreateAccount", model);
+            }
+
+            // アカウント登録
+            result = await _userManager.CreateAsync(user, model.Password1).ConfigureAwait(false);
+            if (result == IdentityResult.Success)
+            {
+                // 登録成功の場合はアカウント一覧画面へ
+                return View("Index", new ManageViewModel(_userManager, 1)
+                {
+                    Notification = "登録が完了しました。",
+                    NotificationColor = "manage_theme_positive",
+                });
+            }
+            else
+            {
+                // 登録失敗
+                model.Notification = "入力されたアカウントはすでに登録されています。";
+                model.NotificationColor = "manage_theme_warning";
+                return View("CreateAccount", model);
+            }
         }
         [HttpGet]
         public IActionResult Paging(int page)

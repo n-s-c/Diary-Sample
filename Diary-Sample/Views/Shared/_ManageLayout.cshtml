@@ -44,6 +44,9 @@
             </div>
         </nav>
     </header>
+    @if(Model.Notification != string.Empty){
+    <partial name="_Toast" />
+    }
     <div class="container">
         <main class="pb-3">
             @RenderBody()

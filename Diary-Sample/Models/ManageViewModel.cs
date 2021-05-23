@@ -33,12 +33,16 @@ namespace Diary_Sample.Models
         public List<UserViewModel> Users { get; } = new List<UserViewModel>();
         // ページ管理
         public PageViewModel Page { get; }
+        // 通知
+        public string Notification { get; set; } = string.Empty;
+        // 通知の色
+        public string NotificationColor { get; set; } = string.Empty;
         // UserMangerから全ユーザを取得する
         private static List<UserViewModel> getAllUsers(UserManager<IdentityUser> userManager)
         {
             using (UserManager<IdentityUser>? um = userManager ?? throw new ArgumentNullException(nameof(userManager)))
             {
-                return (from user in um.Users select new UserViewModel(user)).ToList<UserViewModel>();
+                return (from user in um.Users orderby user.Email select new UserViewModel(user)).ToList<UserViewModel>();
             }
         }
         // 指定ページのユーザリストを取得する
