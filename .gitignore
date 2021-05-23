@@ -702,3 +702,8 @@ MigrationBackup/
 
 # reg-suit
 *.reg
+
+# Docker Data Folder
+!/Diary-Sample/docker/db/data
+/Diary-Sample/docker/db/data/*
+!/Diary-Sample/docker/db/data/.gitkeep
