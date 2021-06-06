@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diary_Sample.Common;
 using Microsoft.AspNetCore.Identity;
+using static Diary_Sample.Common.ResultType;
 
 namespace Diary_Sample.Models
 {
@@ -35,8 +37,8 @@ namespace Diary_Sample.Models
         public PageViewModel Page { get; }
         // 通知
         public string Notification { get; set; } = string.Empty;
-        // 通知の色
-        public string NotificationColor { get; set; } = string.Empty;
+        // 通知の種類
+        public ResultType NotificationType { get; set; } = None;
         // UserMangerから全ユーザを取得する
         private static List<UserViewModel> getAllUsers(UserManager<IdentityUser> userManager)
         {

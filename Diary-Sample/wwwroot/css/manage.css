@@ -8,6 +8,14 @@ body {
 form {
     display: inline;
 }
+.notification_theme_normal {
+    color:white;
+    background-color: rgb(103, 145, 209);
+}
+.notification_theme_error {
+    color: white;
+    background-color: rgb(255, 174, 181);
+}
 
 /**
 * 管理

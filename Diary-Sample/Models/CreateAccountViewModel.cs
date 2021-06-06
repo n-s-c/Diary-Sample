@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using System.ComponentModel.DataAnnotations;
+using Diary_Sample.Common;
+using static Diary_Sample.Common.ResultType;
 
 namespace Diary_Sample.Models
 {
@@ -37,7 +39,7 @@ namespace Diary_Sample.Models
 
         // 通知
         public string Notification { get; set; } = string.Empty;
-        // 通知の色
-        public string NotificationColor { get; set; } = string.Empty;
+        // 通知の種類
+        public ResultType NotificationType { get; set; } = None;
     }
 }

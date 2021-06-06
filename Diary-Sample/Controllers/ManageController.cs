@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using static Diary_Sample.Common.ResultType;
 namespace Diary_Sample.Controllers
 {
     [Authorize]
@@ -46,6 +46,8 @@ namespace Diary_Sample.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Notification = string.Empty;
+                model.NotificationType = None;
                 return View("CreateAccount", model);
             }
 
@@ -62,7 +64,7 @@ namespace Diary_Sample.Controllers
             {
                 // パスワード不一致エラー
                 model.Notification = "パスワードとパスワード（再入力）が不一致です。";
-                model.NotificationColor = "manage_theme_warning";
+                model.NotificationType = Error;
                 return View("CreateAccount", model);
             }
 
@@ -71,7 +73,7 @@ namespace Diary_Sample.Controllers
             {
                 // パスワードエラー
                 model.Notification = "パスワードが不正です。";
-                model.NotificationColor = "manage_theme_warning";
+                model.NotificationType = Error;
                 return View("CreateAccount", model);
             }
 
@@ -83,14 +85,14 @@ namespace Diary_Sample.Controllers
                 return View("Index", new ManageViewModel(_userManager, 1)
                 {
                     Notification = "登録が完了しました。",
-                    NotificationColor = "manage_theme_positive",
+                    NotificationType = Normal,
                 });
             }
             else
             {
                 // 登録失敗
                 model.Notification = "入力されたアカウントはすでに登録されています。";
-                model.NotificationColor = "manage_theme_warning";
+                model.NotificationType = Error;
                 return View("CreateAccount", model);
             }
         }
