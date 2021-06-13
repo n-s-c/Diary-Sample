@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Diary_Sample.Common
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -44,6 +45,9 @@
             </div>
         </nav>
     </header>
+    @if(Model.NotificationType != ResultType.None){
+    <partial name="_Toast" />
+    }
     <div class="container">
         <main class="pb-3">
             @RenderBody()

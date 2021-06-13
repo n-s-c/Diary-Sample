@@ -5,6 +5,17 @@ body {
 ::selection {
     background: rgba(19, 94, 255, 0.411);
 }
+form {
+    display: inline;
+}
+.notification_theme_normal {
+    color:white;
+    background-color: rgb(103, 145, 209);
+}
+.notification_theme_error {
+    color: white;
+    background-color: rgb(255, 174, 181);
+}
 
 /**
 * 管理
@@ -21,6 +32,32 @@ body {
 }
 .manage_theme::selection {
     color:white;
+}
+.manage_theme_positive {
+    color:white;
+    background-color: rgb(103, 145, 209);
+}
+.manage_theme_positive:hover {
+    color:white;
+    background-color: rgb(103, 145, 209);
+}
+.manage_theme_warning {
+    color: white;
+    background-color: rgb(255, 174, 181);
+}
+.manage_theme_warning:hover {
+    color: white;
+    background-color: rgb(255, 174, 181);
+}
+.manage_theme_cancel{
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
+}
+.manage_theme_cancel:hover {
+    border : 1px solid darkgray;
+    color: black;
+    background-color: white;
 }
 
 
@@ -81,4 +118,7 @@ table.account_list td {
 
 .user_email {
     color: rgb(38, 8, 209) !important;
+}
+.password_explain {
+    font-size: 0.5rem;
 }
