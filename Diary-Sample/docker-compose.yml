@@ -26,6 +26,8 @@ services:
   adminer:
     image: adminer
     restart: always
+    environment:
+      ADMINER_DESIGN: pappu687
     ports:
       - 8080:8080
     depends_on: 
