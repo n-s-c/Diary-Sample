@@ -43,6 +43,8 @@ namespace Diary_Sample
             services.AddSingleton<ICreateService, CreateService>();
             services.AddSingleton<IReferService, ReferService>();
             services.AddSingleton<IEditService, EditService>();
+            services.AddSingleton<IApiService, ApiService>();
+            services.AddSingleton<ISharedService, SharedService>();
             services.AddSingleton<IDiaryRepository, DiaryRepository>();
             services.AddSingleton<DiarySampleContext>();
 
@@ -128,6 +130,7 @@ namespace Diary_Sample
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                // endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Auth}/{action=Index}");

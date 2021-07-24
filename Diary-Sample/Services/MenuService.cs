@@ -15,12 +15,12 @@ namespace Diary_Sample.Services
     {
         private const int InitialPage = 1;
         private readonly ILogger<MenuService> _logger;
-        private readonly IDiaryRepository _repository;
+        private readonly ISharedService _service;
 
-        public MenuService(ILogger<MenuService> logger, IDiaryRepository repository)
+        public MenuService(ILogger<MenuService> logger, ISharedService service)
         {
             _logger = logger;
-            _repository = repository;
+            _service = service;
         }
 
         public MenuViewModel Index(string notification)
@@ -36,10 +36,8 @@ namespace Diary_Sample.Services
         private MenuViewModel createModel(int page, string notification)
         {
             return new MenuViewModel(
-                _repository.read(page, MenuViewModel.PageCount)
-                .Select(diary => new DiaryRow(diary.id, diary.title, diary.post_date))
-                .ToList(),
-                _repository.readCount(),
+                _service.Lists(page, MenuViewModel.PageCount),
+                _service.Counts(),
                 page,
                 notification);
         }
