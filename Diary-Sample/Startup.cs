@@ -101,6 +101,23 @@ namespace Diary_Sample
                 // セッションストアにRedisTicketStoreを使用する
                 options.SessionStore = services.BuildServiceProvider().GetRequiredService<RedisTicketStore>();
             });
+
+            // Swagger
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Diary-Sample API";
+                    document.Info.Description = "ASP.NET Core web API";
+                    document.Info.Contact = new NSwag.OpenApiContact
+                    {
+                        Name = "1-system-group",
+                        Email = string.Empty,
+                        Url = "https://github.com/1-system-group/Diary-Sample",
+                    };
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -127,10 +144,13 @@ namespace Diary_Sample
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // Swagger generator・Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                // endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Auth}/{action=Index}");
