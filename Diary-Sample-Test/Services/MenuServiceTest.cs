@@ -17,14 +17,14 @@ namespace Diary_Sample_Test.Services
 {
     public class MenuServiceTest
     {
-        private readonly Mock<ILogger<MenuService>> mockLogger;
         private readonly Mock<IDiaryRepository> mockRepository;
         private readonly MenuService service;
         public MenuServiceTest()
         {
-            mockLogger = new Mock<ILogger<MenuService>>();
             mockRepository = new Mock<IDiaryRepository>();
-            service = new MenuService(mockLogger.Object, mockRepository.Object);
+            service = new MenuService(
+                new Mock<ILogger<MenuService>>().Object,
+                new SharedService(new Mock<ILogger<ISharedService>>().Object, mockRepository.Object));
         }
         [Fact]
         public void IndexTest1()
