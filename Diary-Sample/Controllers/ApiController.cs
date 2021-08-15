@@ -33,5 +33,9 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> Counts() => Ok(_service.Counts());
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<DiaryModel> Diary(int id) => Ok(_service.Diary(id));
     }
 }

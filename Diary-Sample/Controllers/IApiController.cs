@@ -38,5 +38,18 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> Counts();
+
+        /// <summary>
+        /// 日記を取得する
+        /// </summary>
+        /// <remarks>
+        /// 登録されている日記のうち、引数のid(連番)に紐づく日記の情報を取得する。
+        /// </remarks>
+        /// <param name="id">連番</param>
+        /// <returns>日記</returns>
+        /// <response code="200">OK 日記</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<DiaryModel> Diary(int id);
     }
 }
