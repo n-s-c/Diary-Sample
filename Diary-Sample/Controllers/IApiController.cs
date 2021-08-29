@@ -38,5 +38,21 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> Counts();
+
+        /// <summary>
+        /// 日記を取得する
+        /// </summary>
+        /// <remarks>
+        /// 登録されている日記のうち、引数のid(連番)に紐づく日記の情報を取得する。
+        /// id(連番)に紐づく日記が見つからない場合、404(NotFound)を返す。
+        /// </remarks>
+        /// <param name="id">連番</param>
+        /// <returns>日記</returns>
+        /// <response code="200">OK 日記</response>
+        /// <response code="404">NG 日記</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(DiaryModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+        public ActionResult<DiaryModel> Diary(int id);
     }
 }
