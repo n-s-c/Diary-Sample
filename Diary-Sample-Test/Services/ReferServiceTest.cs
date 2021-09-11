@@ -14,12 +14,12 @@ namespace Diary_Sample_Test.Services
     public class ReferServiceTest
     {
         private readonly Mock<IDiaryRepository> mockRepository;
-        private readonly SharedService sharedService;
+        private SharedService sharedService;
 
         public ReferServiceTest()
         {
             mockRepository = new Mock<IDiaryRepository>();
-            sharedService = new SharedService(new Mock<ILogger<ISharedService>>().Object, mockRepository.Object);
+            //sharedService = new SharedService(new Mock<ILogger<ISharedService>>().Object, mockRepository.Object);
         }
 
         // 正常系：レコード取得成功
@@ -29,7 +29,9 @@ namespace Diary_Sample_Test.Services
             var diaryList = new List<Diary>();
             diaryList.Add(new Diary(1, "たいとる（てすと）", "ほんぶん（てすと）"));
             mockRepository.Setup(x => x.Read(1)).Returns(diaryList);
-            var service = new ReferService(mockRepository.Object, sharedService);
+
+            sharedService = new SharedService(new Mock<ILogger<ISharedService>>().Object, mockRepository.Object);
+            var service = new ReferService(sharedService);
 
             var result = service.GetDiary(1);
             var model = Assert.IsType<ReferViewModel>(result);
@@ -44,7 +46,9 @@ namespace Diary_Sample_Test.Services
         {
             var diaryList = new List<Diary>();
             mockRepository.Setup(x => x.Read(1)).Returns(diaryList);
-            var service = new ReferService(mockRepository.Object, sharedService);
+            sharedService = new SharedService(new Mock<ILogger<ISharedService>>().Object, mockRepository.Object);
+
+            var service = new ReferService(sharedService);
 
             var result = service.GetDiary(1);
 
