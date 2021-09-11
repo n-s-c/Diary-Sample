@@ -14,20 +14,17 @@ namespace Diary_Sample.Services
 {
     public class ReferService : IReferService
     {
-        private readonly IDiaryRepository _repository;
         private readonly ISharedService _service;
 
-        public ReferService(IDiaryRepository repository, ISharedService service)
+        public ReferService(ISharedService service)
         {
-            _repository = repository;
             _service = service;
         }
 
         public ReferViewModel? GetDiary(int id)
         {
-
-            DiaryModel? diary = null;
-            if (!_service.Diary(id, ref diary))
+            DiaryModel diary = _service.Diary(id);
+            if (diary == null)
             {
                 return null;
             }

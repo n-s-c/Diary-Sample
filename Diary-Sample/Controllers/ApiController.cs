@@ -39,13 +39,13 @@ namespace Diary_Sample.Controllers
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
         public ActionResult<DiaryModel> Diary(int id)
         {
-            DiaryModel? diary = null;
-
-            if (_service.Diary(id, ref diary))
+            DiaryModel diary = _service.Diary(id);
+            if (diary == null)
             {
-                return Ok(diary);
+                return NotFound();
             }
-            return NotFound();
+
+            return Ok(diary);
         }
     }
 }

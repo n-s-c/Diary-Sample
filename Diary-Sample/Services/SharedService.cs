@@ -28,17 +28,15 @@ namespace Diary_Sample.Services
                 .ToList();
         public int Counts() => _repository.readCount();
 
-        public bool Diary(int id, ref DiaryModel? diary)
+        public DiaryModel Diary(int id)
         {
             var diaryList = _repository.Read(id).Select(diary => new DiaryModel(diary.id, diary.title, diary.content)).ToList();
             if (diaryList.Count != 1)
             {
-                return false;
+                return null;
             }
 
-            diary = diaryList[0];
-
-            return true;
+            return diaryList[0];
         }
     }
 }
