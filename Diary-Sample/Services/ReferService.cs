@@ -14,41 +14,29 @@ namespace Diary_Sample.Services
 {
     public class ReferService : IReferService
     {
-        private readonly IDiaryRepository _repository;
+        private readonly ISharedService _service;
 
-        public ReferService(IDiaryRepository repository)
+        public ReferService(ISharedService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         public ReferViewModel? GetDiary(int id)
         {
-            var diaryList = GetById(id);
-            if (diaryList.Count == 0)
+            DiaryModel diary = _service.Diary(id);
+            if (diary == null)
             {
                 return null;
             }
 
-            var diary = diaryList.First();
             ReferViewModel? viewModel = new ReferViewModel
             {
-                Id = diary.id.ToString(),
-                Title = diary.title,
-                Content = diary.content,
+                Id = diary.Id,
+                Title = diary.Title,
+                Content = diary.Content,
             };
 
             return viewModel;
-        }
-
-        private List<Diary> GetById(int id)
-        {
-            var diaryList = _repository.Read(id);
-            if (diaryList.Count != 1)
-            {
-                return new List<Diary>();
-            }
-
-            return diaryList;
         }
     }
 }

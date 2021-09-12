@@ -22,5 +22,6 @@ namespace Diary_Sample.Services
         }
         public List<DiaryRow> Lists(int page) => _service.Lists(page, PageCount);
         public int Counts() => _service.Counts();
+        public DiaryModel Diary(int id) => _service.Diary(id);
     }
 }

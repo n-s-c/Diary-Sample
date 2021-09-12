@@ -12,5 +12,6 @@ namespace Diary_Sample.Services
     {
         public List<DiaryRow> Lists(int page, int count);
         public int Counts();
+        public DiaryModel Diary(int id);
     }
 }

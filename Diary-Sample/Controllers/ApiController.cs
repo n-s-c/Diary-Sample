@@ -33,5 +33,19 @@ namespace Diary_Sample.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> Counts() => Ok(_service.Counts());
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(DiaryModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+        public ActionResult<DiaryModel> Diary(int id)
+        {
+            DiaryModel diary = _service.Diary(id);
+            if (diary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(diary);
+        }
     }
 }
