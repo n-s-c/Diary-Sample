@@ -24,7 +24,7 @@ namespace Diary_Sample.Entities
         public static readonly ILoggerFactory MySQLLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         public static string getDBConnectionString(IConfiguration configuration)
         {
-            var jawsDbUrl = Environment.GetEnvironmentVariable("JAWSDB_URL");
+            var jawsDbUrl = Environment.GetEnvironmentVariable("DIARY_SAMPLE_JAWSDB_URL");
             return string.IsNullOrEmpty(jawsDbUrl) ? configuration.GetConnectionString("DbConnectionString") : jawsDbUrl;
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
