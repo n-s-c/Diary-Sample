@@ -59,7 +59,7 @@ namespace Diary_Sample
                 services.AddSingleton<IEmailSender, EmailSenderLocal>();
             }
 
-            var jawsDb = Environment.GetEnvironmentVariable("JAWSDB_URL");
+            var jawsDb = Environment.GetEnvironmentVariable("DIARY_SAMPLE_JAWSDB_URL");
             services.AddDbContext<DiarySampleContext>(options =>
                 options.UseMySQL(getDBConnectionString(Configuration)));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -72,7 +72,7 @@ namespace Diary_Sample
             });
 
             // Redis
-            var redis = Environment.GetEnvironmentVariable("REDIS_URL");
+            var redis = Environment.GetEnvironmentVariable("DIARY_SAMPLE_REDIS_URL");
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(
                 string.IsNullOrEmpty(redis) ? Configuration.GetConnectionString("SessionConnectionString")
                 : redis));
