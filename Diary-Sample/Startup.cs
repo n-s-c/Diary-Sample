@@ -75,7 +75,7 @@ namespace Diary_Sample
             var redis = Environment.GetEnvironmentVariable("REDIS_URL");
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(
                 string.IsNullOrEmpty(redis) ? Configuration.GetConnectionString("SessionConnectionString")
-                : redis));
+                : redis.Split("@")[1] + ",password=" + redis.Split("@")[0].Split(":")[2]));
             services.AddScoped<RedisTicketStore>();
             services.AddDataProtection()
                     .SetApplicationName("Diary_Sample.Infra")
