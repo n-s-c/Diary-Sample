@@ -4,7 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Diary_Sample.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +15,24 @@ namespace Diary_Sample.Controllers
 {
     public interface IApiController
     {
+        /// <summary>
+        /// ログインする
+        /// </summary>
+        /// <remarks>
+        /// モバイルアプリからログインするためのAPI
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="deviceId"></param>
+        /// <returns>認証トークン</returns>
+        /// <response code="200">OK 認証トークン</response>
+        /// <response code="401">NG 認証失敗</response>
+        [AllowAnonymous]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestResult), StatusCodes.Status400BadRequest)]
+        public Task<IActionResult> Login(string email, string password, string deviceId);
+
         /// <summary>
         /// 日記の情報一覧を取得する
         /// </summary>
@@ -35,6 +56,7 @@ namespace Diary_Sample.Controllers
         /// </remarks>
         /// <returns>日記の件数</returns>
         /// <response code="200">OK 日記の件数</response>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> Counts();
@@ -50,6 +72,7 @@ namespace Diary_Sample.Controllers
         /// <returns>日記</returns>
         /// <response code="200">OK 日記</response>
         /// <response code="404">NG 日記</response>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(DiaryModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
